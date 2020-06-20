@@ -6,7 +6,7 @@ import(
 	"strings"
 )
 func optionsConsoleShowIndex(){
-	fmt.Println("Victorium Universalim is a complex simulation of the historical conditions of the Globe during the 14th to 19th centuries.");
+	fmt.Println("Victorium Universalim is a complex simulation of the historical conditions of the Globe during the 14th to 19th centuries.")
 	fmt.Println("It is advised that you either play the game in tutorial mode, or that you read this manual beforehand, so that you might be able to interact correctly and tactfully in the world of medieval history.")
 	fmt.Println("Index: ")
 	fmt.Println("1.Introduction")
@@ -35,22 +35,23 @@ func optionsConsoleprintBookRecomendations() {
 	fmt.Println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
 }
 func startOptions() {
-	gameState=OPTIONS_MENU;
-	optionsConsoleShowIndex();
-	handleInputOptionsConsole();
+	gameState= OptionsMenu
+	optionsConsoleShowIndex()
+	handleInputOptionsConsole()
 }
 func handleInputOptionsConsole() {
 	for{
-		if gameState!= OPTIONS_MENU {
-			break;}
+		if gameState!= OptionsMenu {
+			break
+		}
 		reader := bufio.NewReader(os.Stdin)
 		fmt.Print("-> ")
 		text, _ := reader.ReadString('\n')
 		text = strings.Replace(text, "\n", "", -1)
 		if strings.Compare(text,"0") == 0{
-			gameState = MAIN_MENU;
-			main();
-			break;
+			gameState = MainMenu
+			main()
+			break
 		}
 		if strings.Compare(text,"12")==0{
 			optionsConsoleprintBookRecomendations()

@@ -13,12 +13,12 @@ func init() {
 	clear["linux"] = func() {
 		cmd := exec.Command("clear") //Linux example, its tested
 		cmd.Stdout = os.Stdout
-		cmd.Run()
+		_ = cmd.Run()
 	}
 	clear["windows"] = func() {
 		cmd := exec.Command("cmd", "/c", "cls") //Windows example, its tested
 		cmd.Stdout = os.Stdout
-		cmd.Run()
+		_ = cmd.Run()
 	}
 }
 

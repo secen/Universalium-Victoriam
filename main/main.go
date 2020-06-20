@@ -5,7 +5,8 @@ import (
 	"os"
 	"strings"
 )
-var gameState = MAIN_MENU;
+var gameState = MainMenu
+
 func main() {
 
 	reader := bufio.NewReader(os.Stdin)
@@ -20,7 +21,7 @@ func main() {
 		// convert CRLF to LF
 		text = strings.Replace(text, "\n", "", -1)
 
-		inputHandler(text);
+		inputHandler(text)
 	}
 
 }
