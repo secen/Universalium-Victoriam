@@ -1,25 +1,25 @@
 package main
 
 var countryCodes map[int]string
-func initCountries () []country{
-	var auxvec []country
-	auxvec = make([]country,10)
-	var auxcnt = country{
-		code : 1,
-		money: 30,
-		cultureScore:100,
-		infrastructureScore:20,
-		gdp:30,
-		militaryScore:20,
-		debt:0,
-		population:100,
+func initCountries () []Country{
+	var auxvec []Country
+	auxvec = make([]Country,10)
+	var auxcnt = Country{
+		Code:                1,
+		Money:               30,
+		CultureScore:        100,
+		InfrastructureScore: 20,
+		Gdp:                 30,
+		MilitaryScore:       20,
+		Debt:                0,
+		Population:          100,
 	}
 	countryCodes = make(map[int]string)
 	countryCodes[1] = "Austria"
 	auxvec[0] = auxcnt
 	return auxvec
 }
-func initCountryRelations (countries []country) []RelationEntry {
+func initCountryRelations (countries []Country) []RelationEntry {
 	var relations = make([]RelationEntry,10)
 	relations[0] = RelationEntry{cnt1:countries[0],cnt2:countries[1],rel:PEACE}
 	return relations
@@ -34,9 +34,9 @@ var gameView View
 gameController = gameController.run(gameController)
 return gameController
 }
-func initAll() ([]country,[]RelationEntry){
+func initAll() ([]Country,[]RelationEntry){
 	print("Loading assets....")
-	var countries = make([]country,10)
+	var countries = make([]Country,10)
 	countries = initCountries()
 	var relations = initCountryRelations(countries)
 	return countries, relations

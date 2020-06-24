@@ -25,15 +25,15 @@ func inputHandler(text string) {
 	if strings.Compare("options",text)==0{
 		startOptions()
 	}
-	if strings.Compare("debug show country",text) == 0 {
-		var debugCountry = country{
-		cultureScore:        2,
-		militaryScore:       20,
-		infrastructureScore: 10,
-		debt:                500,
-		money:               300,
-		code:                12,
-		gdp:                 100,
+	if strings.Compare("debug show Country",text) == 0 {
+		var debugCountry = Country{
+		CultureScore:        2,
+		MilitaryScore:       20,
+		InfrastructureScore: 10,
+		Debt:                500,
+		Money:               300,
+		Code:                12,
+		Gdp:                 100,
 			}
 		showCountryStats(debugCountry)
 	}
@@ -41,14 +41,14 @@ func inputHandler(text string) {
 		execTests()
 	}
 }
-func showCountryStats(cnt country) {
-	fmt.Println(cnt.code)
-	fmt.Println("Infrastrucutal Score: ",cnt.infrastructureScore)
-	fmt.Println("Military Score: ",cnt.militaryScore)
-	fmt.Println("Cultural Score:", cnt.cultureScore)
-	fmt.Println("Debt: ",cnt.debt,)
-	fmt.Println("Money: ",cnt.money)
-	fmt.Println("GDP: ", cnt.gdp)
+func showCountryStats(cnt Country) {
+	fmt.Println(cnt.Code)
+	fmt.Println("Infrastrucutal Score: ",cnt.InfrastructureScore)
+	fmt.Println("Military Score: ",cnt.MilitaryScore)
+	fmt.Println("Cultural Score:", cnt.CultureScore)
+	fmt.Println("Debt: ",cnt.Debt,)
+	fmt.Println("Money: ",cnt.Money)
+	fmt.Println("GDP: ", cnt.Gdp)
 }
 func showCommands(){
 	fmt.Println("exit - exits the game")
@@ -58,6 +58,6 @@ func showCommands(){
 	fmt.Println("more debug - shows debug options")
 }
 func showDebugCommands() {
-	fmt.Println("debug show country - shows a debug country overview")
+	fmt.Println("debug show Country - shows a debug Country overview")
 	fmt.Println("debug tests - tests")
 }

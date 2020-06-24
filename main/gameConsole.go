@@ -17,7 +17,7 @@ func nationPicker() {
 	}
 }
 
-var pickedNation = country{}
+var pickedNation = Country{}
 
 
 func inputHandlerGameConsole(text string) {

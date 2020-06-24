@@ -12,7 +12,7 @@ func gameReadyStart(nation string) {
 	fmt.Println(nation)
 }
 
-func writeOutput(currentView VIEW, isFirstTime bool, pickedNation country, globalEconomicsQueue queue) {
+func writeOutput(currentView VIEW, isFirstTime bool, pickedNation Country, globalEconomicsQueue queue) {
 	if isFirstTime && currentView!=NationPicker {
 		VIEWShowCountryIntroductionPopup(pickedNation)
 		isFirstTime = false
@@ -27,7 +27,7 @@ func writeOutput(currentView VIEW, isFirstTime bool, pickedNation country, globa
 }
 
 
-func handleFinancesInput(pickedNation country, economicQueue queue){
+func handleFinancesInput(pickedNation Country, economicQueue queue){
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("-> ")
 	text, _ := reader.ReadString('\n')
@@ -54,7 +54,7 @@ func handleFinancesInput(pickedNation country, economicQueue queue){
 	}
 }
 
-func handleMilitaryInput(pickedNation country) {
+func handleMilitaryInput(pickedNation Country) {
 
 }
 
@@ -96,7 +96,7 @@ func EXECUPDatePlayerActions() {
 func handleGameInput() {
 	fmt.Println("type help")
 }
-func Tick(currentView VIEW, isFirstTime bool, pickedNation country, globalEconomicsQueue queue, controller Controller) {
+func Tick(currentView VIEW, isFirstTime bool, pickedNation Country, globalEconomicsQueue queue, controller Controller) {
 	writeOutput(currentView, isFirstTime, pickedNation, globalEconomicsQueue)
 	executeLogic(globalEconomicsQueue)
 	handleGameInput()

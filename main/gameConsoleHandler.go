@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func CONSOLEWRITEOverview(currentView *VIEW, pickedNation country,globalEconomicQueue queue) {
+func CONSOLEWRITEOverview(currentView *VIEW, pickedNation Country,globalEconomicQueue queue) {
 	switch *currentView {
 	case DefaultView:
 		*currentView= NationPicker

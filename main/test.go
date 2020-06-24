@@ -40,16 +40,7 @@ func captureOutput(f func()) string {
 	return <-out
 }
 func TestShowCountryFinancials() bool {
-	var cnt = country{gdp: 100,
-		debt:          20,
-		income:        40,
-		expenses:      50,
-		money:         120,
-		population:    300,
-		militaryScore: 10,
-		cultureScore:  100,
-		interest:      0,
-		code:          0}
+	var cnt Country = parseCountryFromJSON(readFromFile("countries.json"))
 	var str = captureOutput(func() { VIEWShowCountryFinances(cnt) })
 	if strings.Contains(str, "Debt:  20") == true {
 		return true
@@ -68,18 +59,18 @@ func testIOReadFromFile() bool {
 
 //noinspection ALL
 func testECONCountryFinancialModifyTax() bool {
-	var cnt = country{gdp: 100,
-		debt:          20,
-		income:        40,
-		expenses:      50,
-		money:         120,
-		population:    300,
-		militaryScore: 10,
-		cultureScore:  100,
+	var cnt = Country{Gdp: 100,
+		Debt:          20,
+		Income:        40,
+		Expenses:      50,
+		Money:         120,
+		Population:    300,
+		MilitaryScore: 10,
+		CultureScore:  100,
 		interest:      0,
-		code:          0}
+		Code:          0}
 	var economicsqueue = queue{}
-	economicsqueue = appendQueue(economicsqueue, func() { cnt.income += 10 })
+	economicsqueue = appendQueue(economicsqueue, func() { cnt.Income += 10 })
 	EXECUPDateEconomics(economicsqueue)
 	var str = captureOutput(func() { VIEWShowCountryFinances(cnt) })
 	if strings.Contains(str, "Debt:  20") == true {
@@ -102,7 +93,7 @@ func testLAWAbolishLaw() bool {
 }
 func testIOLoadCountry() bool {
 	var testCountry = loadCountryFromString(readFromFile("debugCountries.txt"))
-	if testCountry.code == 12 {
+	if testCountry.Code == 12 {
 		return true
 	} else {
 		return false
@@ -154,10 +145,10 @@ func execTests() {
 
 func testsECONTick() bool {
 
-	var butter =  Good{2,4,1.5,0.000004,0.002,0.00004};
+	var butter Good = parseJSONToGood(readFromFile("goods.json"))
 	for {
 		butter=goodCalculateNextTick(butter)
-		if butter.price>1.5{
+		if butter.Price>1.5{
 			return true;
 		}else {
 			return false;
@@ -167,19 +158,18 @@ func testsECONTick() bool {
 
 func testECONNationalize() bool {
 	var cnt = loadCountryFromString(readFromFile(debugCountriesFilename))
-	var pastMoney = cnt.money
+	var pastMoney = cnt.Money
 	cnt = ECONNationalizeIndustries(cnt)
-	if cnt.money/30 == pastMoney {
+	if cnt.Money/30 == pastMoney {
 		return true
 	}
 	return false
 }
-
 func testECONDebase() bool {
 	var cnt = loadCountryFromString(readFromFile(debugCountriesFilename))
-	var bakgdp = cnt.gdp
+	var bakgdp = cnt.Gdp
 	cnt = ECONDebaseCurrency(cnt)
-	if bakgdp == cnt.gdp*2 {
+	if bakgdp == cnt.Gdp*2 {
 		return true
 	}
 	return false
@@ -187,9 +177,9 @@ func testECONDebase() bool {
 
 func testECONLowerTaxes() bool {
 	var cnt = loadCountryFromString(readFromFile(debugCountriesFilename))
-	var bakgdp = cnt.gdp
+	var bakgdp = cnt.Gdp
 	cnt = ECONLowerTax(cnt)
-	if cnt.gdp-5 == bakgdp {
+	if cnt.Gdp-5 == bakgdp {
 		return true
 	}
 	return false
@@ -197,9 +187,9 @@ func testECONLowerTaxes() bool {
 
 func testECONRaiseTaxes() bool {
 	var cnt = loadCountryFromString(readFromFile(debugCountriesFilename))
-	var bakgdp = cnt.gdp
+	var bakgdp = cnt.Gdp
 	cnt = ECONRaiseTax(cnt)
-	if cnt.gdp == bakgdp-5 {
+	if cnt.Gdp == bakgdp-5 {
 		return true
 	}
 	return false

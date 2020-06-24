@@ -1,0 +1,12 @@
+{
+  "Name": "Korea",
+  "Gdp": 100,
+  "Debt":          20,
+  "Income":        40,
+  "Expenses":      50,
+  "Money":         120,
+  "Population":    300,
+  "MilitaryScore": 10,
+  "CultureScore":  100,
+  "Interest":      0,
+  "Code":          0}

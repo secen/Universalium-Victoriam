@@ -17,6 +17,11 @@ func readFromFile(fileName string)string{
 func GetFunctionName(i interface{}) string {
 	return runtime.FuncForPC(reflect.ValueOf(i).Pointer()).Name()
 }
+func writeToFile(str string, filename string) error {
+	d1 := []byte(str)
+	err := ioutil.WriteFile("/tmp/dat1", d1, 0644)
+	return err;
+}
 func init() {
 	clear = make(map[string]func()) //Initialize it
 	clear["linux"] = func() {

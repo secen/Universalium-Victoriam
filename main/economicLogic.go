@@ -1,32 +1,32 @@
 package main
-func ECONDebaseCurrency (pickedNation country) country {
+func ECONDebaseCurrency (pickedNation Country) Country {
 	//[TESTED]
-	pickedNation.income*=5
-	pickedNation.gdp/=2
+	pickedNation.Income *=5
+	pickedNation.Gdp /=2
 	return pickedNation
 }
 
-func ECONNationalizeIndustries(pickedNation country) country{
+func ECONNationalizeIndustries(pickedNation Country) Country{
 	//[TESTED]
-	pickedNation.income/=2
-	pickedNation.gdp/=2
-	pickedNation.debt= 0
-	pickedNation.infrastructureScore*=5
+	pickedNation.Income /=2
+	pickedNation.Gdp /=2
+	pickedNation.Debt = 0
+	pickedNation.InfrastructureScore *=5
 	pickedNation.interest=0
-	pickedNation.money*=30
+	pickedNation.Money *=30
 	return pickedNation
 }
 
-func ECONRaiseTax(pickedNation country) country{
+func ECONRaiseTax(pickedNation Country) Country{
 	//[TESTED]
-		pickedNation.income += 5
-	pickedNation.gdp -= 5
+		pickedNation.Income += 5
+	pickedNation.Gdp -= 5
 	return pickedNation
 }
 
-func ECONLowerTax(pickedNation country) country {
+func ECONLowerTax(pickedNation Country) Country {
 	//[TESTED]
-	pickedNation.income-=5
-	pickedNation.gdp+=5
+	pickedNation.Income -=5
+	pickedNation.Gdp +=5
 	return pickedNation
 }

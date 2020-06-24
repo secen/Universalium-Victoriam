@@ -27,33 +27,33 @@ func VIEWShowNationPickerHelpData() {
 	fmt.Println("For more information, type 'help' ")
 	fmt.Println("##############################")
 }
-func VIEWShowCountryFinances(pickedNation country) {
-	fmt.Println("Treasury: ", pickedNation.money)
-	fmt.Println("Debt: ", pickedNation.debt)
-	fmt.Println("Income: ", pickedNation.income)
-	fmt.Println("Expenses: ", pickedNation.expenses)
+func VIEWShowCountryFinances(pickedNation Country) {
+	fmt.Println("Treasury: ", pickedNation.Money)
+	fmt.Println("Debt: ", pickedNation.Debt)
+	fmt.Println("Income: ", pickedNation.Income)
+	fmt.Println("Expenses: ", pickedNation.Expenses)
 	fmt.Println("Interest: ", pickedNation.interest)
-	fmt.Println("Balance: ", int32(pickedNation.income)-int32(pickedNation.expenses))
+	fmt.Println("Balance: ", int32(pickedNation.Income)-int32(pickedNation.Expenses))
 	fmt.Println("To raise taxes please type 'raise tax'")
 	fmt.Println("To lower taxes please type 'lower tax'")
 }
 
-func VIEWWRITECountryTechs(pickedNation country) {
+func VIEWWRITECountryTechs(pickedNation Country) {
 	//writes the technology interface on the console
 	//TODO: IMPLEMENT MILITARY INTERFACE
 }
 
-func VIEWShowCountryMilitary(pickedNation country) {
+func VIEWShowCountryMilitary(pickedNation Country) {
 	//writes the military interface on the console
 	//TODO: IMPLEMENT MILITARY INTERFACE
 }
 
-func VIEWWRITECountryProduction(pickedNation country) {
+func VIEWWRITECountryProduction(pickedNation Country) {
 	//writes the production interface on the console
 	//TODO: IMPLEMENT PRODUCTION INTERFACE
 }
 
-func VIEWWRITECountryLaws(pickedNation country) {
+func VIEWWRITECountryLaws(pickedNation Country) {
 	//writes the law interface on the console
 	fmt.Println("Laws Enacted:")
 	for i, s := range pickedNation.laws {
@@ -65,8 +65,8 @@ func VIEWWRITECountryLaws(pickedNation country) {
 	fmt.Println("-> ")
 }
 
-func VIEWShowCountryIntroductionPopup(pickedNation country) {
-	fmt.Println("The nation of ", countryCodes[(int)(pickedNation.code)])
+func VIEWShowCountryIntroductionPopup(pickedNation Country) {
+	fmt.Println("The nation of ", countryCodes[(int)(pickedNation.Code)])
 	showCountryStats(pickedNation)
 	fmt.Println("May you be successful in your endevours!")
 }

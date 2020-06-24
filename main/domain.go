@@ -1,26 +1,27 @@
 package main
 
 type law struct {
-	effect      func(country)
+	effect      func(Country)
 	name        string
 	description string
 	Type        uint32
 }
-type country struct {
-	gdp                 uint32
-	money               uint32
-	debt                uint32
-	population          uint32
-	infrastructureScore uint32
-	militaryScore       uint32
-	cultureScore        uint32
-	code                uint32
-	income              uint32
-	expenses            uint32
+type Country struct {
+	Name                string
+	Gdp                 uint32
+	Money               uint32
+	Debt                uint32
+	Population          uint32
+	InfrastructureScore uint32
+	MilitaryScore       uint32
+	CultureScore        uint32
+	Code                uint32
+	Income              uint32
+	Expenses            uint32
 	interest            int32
 	laws                []law
-	techs 				[]technology
-	nationalEffects 	[]nationalEffect
+	techs               []technology
+	nationalEffects     []nationalEffect
 }
 
 const(
@@ -29,18 +30,19 @@ const(
 	consoleHelpDataFilename = "consoleHelpData.txt"
 )
 
-func createCountry(aCode uint32) country {
-	return country{
-		gdp:                 0,
-		money:               0,
-		debt:                0,
-		population:          0,
-		infrastructureScore: 0,
-		militaryScore:       0,
-		cultureScore:        0,
-		code:                aCode,
-		income:              0,
-		expenses:            0,
+func createCountry(aCode uint32) Country {
+	return Country{
+		Name:                "",
+		Gdp:                 0,
+		Money:               0,
+		Debt:                0,
+		Population:          0,
+		InfrastructureScore: 0,
+		MilitaryScore:       0,
+		CultureScore:        0,
+		Code:                aCode,
+		Income:              0,
+		Expenses:             0,
 	}
 }
 
@@ -56,7 +58,7 @@ type event struct {
 	dateby    uint32
 	notBefore uint32
 	modifier  uint32
-	country   uint32
+	Country   uint32
 }
 
 type nationalEffect struct {
@@ -110,15 +112,16 @@ type decision struct {
 	effect3    uint32
 }
 type Good struct{
-	demand float64
-	supply float64
-	price float64
-	volatility float64
-	volatilityOfRateOfChange float64
-	rateOfChange float64
+	Name string
+	Demand float64
+	Supply float64
+	Price float64
+	Volatility float64
+	VolatilityOfRateOfChange float64
+	RateOfChange float64
 }
 func goodCalculateNextTick(gd Good)Good{
-	gd.price+=gd.demand/gd.supply*gd.volatility+gd.rateOfChange*gd.volatilityOfRateOfChange
+	gd.Price+=gd.Demand/gd.Supply*gd.Volatility+gd.RateOfChange*gd.VolatilityOfRateOfChange
 	return gd
 }
 type building struct {
@@ -144,8 +147,8 @@ const (
 )
 
 type RelationEntry struct {
-	cnt1 country
-	cnt2 country
+	cnt1 Country
+	cnt2 Country
 	rel  SecRel
 }
 

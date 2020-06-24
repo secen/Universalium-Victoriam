@@ -4,8 +4,8 @@ import (
 	"strconv"
 	"strings"
 )
-func loadCountriesFromString(str string) []country{
-	var countries = make([]country,30)
+func loadCountriesFromString(str string) []Country{
+	var countries = make([]Country,30)
 	var cnt = 0
 	var separatedStrings = strings.Split(str,";")
 	for cnt=0;cnt<len(separatedStrings);cnt++{
@@ -13,7 +13,7 @@ func loadCountriesFromString(str string) []country{
 	}
 	return countries
 }
-func loadCountryFromString(str string) country {
+func loadCountryFromString(str string) Country {
 	//[TESTED]
 	var splits = strings.Split(str,":")
 	var newGDP, _ = strconv.Atoi(splits[0])
@@ -26,16 +26,16 @@ func loadCountryFromString(str string) country {
 	var newCode, _ = strconv.Atoi(splits[7])
 	var newIncome, _ = strconv.Atoi(splits[8])
 	var newExpenses, _= strconv.Atoi(splits[9])
-	return country{
-		gdp: 				 uint32(newGDP),
-		money:               uint32(newMoney),
-		debt:                uint32(newDebt),
-		population:          uint32(newPop),
-		infrastructureScore: uint32(newInfrastructureScore),
-		militaryScore:       uint32(newMilitaryScore),
-		cultureScore:        uint32(newCultureScore),
-		code:                uint32(newCode),
-		income:              uint32(newIncome),
-		expenses:            uint32(newExpenses),
+	return Country{
+		Gdp:                 uint32(newGDP),
+		Money:               uint32(newMoney),
+		Debt:                uint32(newDebt),
+		Population:          uint32(newPop),
+		InfrastructureScore: uint32(newInfrastructureScore),
+		MilitaryScore:       uint32(newMilitaryScore),
+		CultureScore:        uint32(newCultureScore),
+		Code:                uint32(newCode),
+		Income:              uint32(newIncome),
+		Expenses:            uint32(newExpenses),
 	}
 }
