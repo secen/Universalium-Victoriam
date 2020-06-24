@@ -35,7 +35,7 @@ func CONSOLEWRITEOverview(currentView *VIEW, pickedNation Country,globalEconomic
 	}
 }
 func CONSOLEWRITENationListPicker() {
-	fmt.Print(readFromFile("nationPickerData.txt"))
+	fmt.Print(readFromFile("nationListings.json"))
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("-> ")
 	text, _ := reader.ReadString('\n')

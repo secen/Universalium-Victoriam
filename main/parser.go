@@ -42,3 +42,18 @@ func parseJSONToGood(JSONStr string) Good{
 	_ = json.Unmarshal(data,&str)
 	return str;
 }
+
+
+func parseJSONToCountryListings(JSONStr string) []CountryListing{
+	var data = []byte(JSONStr)
+	var str []CountryListing;
+	_ = json.Unmarshal(data,&str)
+	return str;
+}
+
+func parseJSONToListing(JSONStr string) CountryListing{
+	var data = []byte(JSONStr)
+	var str CountryListing;
+	_ = json.Unmarshal(data,&str)
+	return str;
+}

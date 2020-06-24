@@ -15,17 +15,7 @@ const (
 )
 
 func VIEWShowNationPickerHelpData() {
-	fmt.Println("##############################")
-	fmt.Println("Type 'pick' to pick a nation")
-	fmt.Println("Type 'play NATION' to play that nation")
-	fmt.Println("For example: play FRANCE")
-	fmt.Println("Type 'back' to go back to the main menu")
-	fmt.Println("Type 'load' to load a game")
-	fmt.Println("Type 'random' for a random nation pick")
-	fmt.Println("Type 'exit' to exit the game")
-	fmt.Println("Type 'clear' to clear the screen")
-	fmt.Println("For more information, type 'help' ")
-	fmt.Println("##############################")
+	fmt.Println(readFromFile("\\consoleData\\nationPickerHelpData.txt"))
 }
 func VIEWShowCountryFinances(pickedNation Country) {
 	fmt.Println("Treasury: ", pickedNation.Money)

@@ -1,0 +1,11 @@
+##############################
+Type 'pick' to pick a nation
+Type 'play NATION' to play that nation
+For example: play FRANCE
+Type 'back' to go back to the main menu
+Type 'load' to load a game
+Type 'random' for a random nation pick
+Type 'exit' to exit the game
+Type 'clear' to clear the screen
+For more information, type 'help'
+##############################

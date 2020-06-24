@@ -25,11 +25,16 @@ type Country struct {
 }
 
 const(
-	debugCountriesFilename = "debugCountries.txt"
-	nationPickerDataFilename = "nationPickerData.txt"
+	debugCountryFilename = "debugCountry.txt"
+	countriesFilename = "countries.json"
+	nationPickerDataFilename = "nationListings.json"
 	consoleHelpDataFilename = "consoleHelpData.txt"
 )
-
+type CountryListing struct{
+	CountryName string
+	Subtitle string
+	Description string
+}
 func createCountry(aCode uint32) Country {
 	return Country{
 		Name:                "",
