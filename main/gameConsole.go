@@ -52,7 +52,51 @@ func startGame(){
 			break
 		}
 		CONSOLEWRITEOverview(currentView,pickedNation,globalEconomicsQueue)
+		CONSOLEHandlePlayerInput(currentView,&pickedNation,globalEconomicsQueue, gameViewController)
 		Tick(*currentView, true, pickedNation,globalEconomicsQueue, gameViewController)
 
+	}
+}
+
+func CONSOLEHandlePlayerInput(view *VIEW, pickedNation *Country, economicsQueue queue, controller Controller) {
+	reader := bufio.NewReader(os.Stdin)
+	switch *view {
+	case DefaultView:
+		var commands = map[string]func(){
+			"econ":func(){*view = FinanceView},
+			"economy": func(){*view = FinanceView},
+			"exit": func(){os.Exit(0)},
+			"save" :func(){},//TODO: IMPLEMENT SAVE FUNCTIONALITY
+			"diplo" :func(){},//TODO: IMPLEMENT THE DIPLOMACY SCREEN
+			"diplomacy": func(){},//TODO: IMPLEMENT THE DIPLOMACY SCREEN
+		}
+		text,_ := reader.ReadString('\n')
+		f,ok:= commands[text];
+		if ok {
+			f();
+		}
+		break;
+	case FinanceView:
+		var commands = map[string]func(){
+		"lower tax": func(){*pickedNation=ECONLowerTax(*pickedNation)},
+		"raise tax":func(){*pickedNation=ECONRaiseTax(*pickedNation)},
+		"back":func(){*view=DefaultView},
+		}
+		text,_ := reader.ReadString('\n')
+		f,ok:= commands[text];
+		if ok {
+			f();
+		}
+		break;
+	case LawView:
+		break;
+	case ProductionView:
+		break;
+	case MilitaryView:
+		break;
+	case TechView:
+		break;
+	case NationPicker:
+		break;
 	}
 }

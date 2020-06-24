@@ -10,20 +10,18 @@ import (
 func CONSOLEWRITEOverview(currentView *VIEW, pickedNation Country,globalEconomicQueue queue) {
 	switch *currentView {
 	case DefaultView:
-		*currentView= NationPicker
+		VIEWShowDEFAULTVIEW(pickedNation)
 		break
 	case NationPicker:
 		CONSOLEWRITENationListPicker()
 		break
 	case FinanceView:
 		VIEWShowCountryFinances(pickedNation)
-		handleFinancesInput(pickedNation, globalEconomicQueue)
 		break
 	case MilitaryView:
 		VIEWShowCountryMilitary(pickedNation)
-		handleMilitaryInput(pickedNation)
 		break
-	case PorductionView:
+	case ProductionView:
 		VIEWWRITECountryProduction(pickedNation)
 		break
 	case LawView:
@@ -33,6 +31,19 @@ func CONSOLEWRITEOverview(currentView *VIEW, pickedNation Country,globalEconomic
 		VIEWWRITECountryTechs(pickedNation)
 		break
 	}
+}
+
+func VIEWShowDEFAULTVIEW(pickedNation Country) {
+	fmt.Println("____________________________")
+	fmt.Print(pickedNation.Name,"||")
+	fmt.Print("Money: ", pickedNation.Money)
+	fmt.Print("||Balance: ", pickedNation.Income-pickedNation.Expenses)
+	fmt.Print("||Pops: ",pickedNation.Population)
+	fmt.Println("____________________________")
+	fmt.Print("type 'econ' or 'economy' to go to the economics screen")
+	fmt.Print("type 'save' to save your game")
+	fmt.Print("type 'diplo' or 'diplomacy' to go to the diplomacy screen")
+	fmt.Print("type 'exit' to exit")
 }
 func CONSOLEWRITENationListPicker() {
 	fmt.Print(readFromFile("nationListings.json"))

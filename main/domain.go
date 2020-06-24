@@ -29,7 +29,8 @@ const(
 	countriesFilename = "countries.json"
 	nationPickerDataFilename = "nationListings.json"
 	consoleHelpDataFilename = "consoleHelpData.txt"
-)
+	nationPickerFilename = "\\consoleData\\nationPickerHelpData.txt"
+	)
 type CountryListing struct{
 	CountryName string
 	Subtitle string

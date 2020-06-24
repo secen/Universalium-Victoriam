@@ -8,14 +8,14 @@ const (
 	DefaultView    VIEW = 0
 	FinanceView    VIEW = 1
 	LawView        VIEW = 2
-	PorductionView VIEW = 3
+	ProductionView VIEW = 3
 	MilitaryView   VIEW = 4
 	TechView       VIEW = 5
 	NationPicker VIEW = 6
 )
 
 func VIEWShowNationPickerHelpData() {
-	fmt.Println(readFromFile("\\consoleData\\nationPickerHelpData.txt"))
+	fmt.Println(readFromFile(nationPickerFilename))
 }
 func VIEWShowCountryFinances(pickedNation Country) {
 	fmt.Println("Treasury: ", pickedNation.Money)
@@ -26,11 +26,12 @@ func VIEWShowCountryFinances(pickedNation Country) {
 	fmt.Println("Balance: ", int32(pickedNation.Income)-int32(pickedNation.Expenses))
 	fmt.Println("To raise taxes please type 'raise tax'")
 	fmt.Println("To lower taxes please type 'lower tax'")
+	fmt.Println("To go back to the default view, please type 'back'")
 }
 
 func VIEWWRITECountryTechs(pickedNation Country) {
 	//writes the technology interface on the console
-	//TODO: IMPLEMENT MILITARY INTERFACE
+	//TODO: IMPLEMENT TECH INTERFACE
 }
 
 func VIEWShowCountryMilitary(pickedNation Country) {
