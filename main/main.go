@@ -10,7 +10,7 @@ var gameState = MainMenu
 func main() {
 
 	reader := bufio.NewReader(os.Stdin)
-	fmt.Println("Victorium Universalim")
+	fmt.Println("Universalium Victoriam")
 	fmt.Println("---------------------")
 	fmt.Println("Type 'help' for help")
 	fmt.Println("---------------------")

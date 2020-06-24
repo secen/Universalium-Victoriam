@@ -19,7 +19,15 @@ type country struct {
 	expenses            uint32
 	interest            int32
 	laws                []law
+	techs 				[]technology
+	nationalEffects 	[]nationalEffect
 }
+
+const(
+	debugCountriesFilename = "debugCountries.txt"
+	nationPickerDataFilename = "nationPickerData.txt"
+	consoleHelpDataFilename = "consoleHelpData.txt"
+)
 
 func createCountry(aCode uint32) country {
 	return country{
@@ -36,6 +44,11 @@ func createCountry(aCode uint32) country {
 	}
 }
 
+type queue []func()
+
+func appendQueue(q queue,f func())queue{q=append(q, f); return q } // Enqueue
+func deQueue(q queue)queue {q=q[1:]; return q }
+func popQueue(q queue)(func(),queue){var aux = q[0]; q = deQueue(q); return aux, q}
 const MAXGAMEBOARDSIZE uint32 = 20000
 
 type event struct {
@@ -96,7 +109,18 @@ type decision struct {
 	effect2    uint32
 	effect3    uint32
 }
-
+type good struct{
+	demand float64
+	supply float64
+	price float64
+	volatility float64
+	volatilityOfRateOfChange float64
+	rateOfChange float64
+}
+func goodCalculateNextTick(gd good)good{
+	gd.price+=gd.demand/gd.supply*gd.volatility+gd.rateOfChange*gd.volatilityOfRateOfChange
+	return gd
+}
 type building struct {
 	ID        uint32
 	condition bool

@@ -25,6 +25,15 @@ func initCountryRelations (countries []country) []RelationEntry {
 	return relations
 }
 
+//noinspection ALL
+func initGameView() Controller {
+var gameView View
+	var gameOutputView View
+	var (
+	gameController = *NewController(gameView,parseGameData,func(cntrl Controller)Controller{cntrl.output= parseGameData(gameView);return cntrl },gameOutputView))
+gameController = gameController.run(gameController)
+return gameController
+}
 func initAll() ([]country,[]RelationEntry){
 	print("Loading assets....")
 	var countries = make([]country,10)

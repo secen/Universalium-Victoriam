@@ -1,0 +1,5 @@
+type 'finances' or 'fin' for a detailed view of your finances
+type 'tech' or 'technology' for a detailed view of your technological progress
+type 'army' or 'mil' for a detailed view of your army
+type 'prod' or 'production' for a detailed view of your economic production
+type 'law' or 'gov' or 'government' for a detailed view of your realm's governing structure

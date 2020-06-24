@@ -38,7 +38,7 @@ func inputHandler(text string) {
 		showCountryStats(debugCountry)
 	}
 	if strings.Compare("debug tests",text)==0{
-		tests()
+		execTests()
 	}
 }
 func showCountryStats(cnt country) {

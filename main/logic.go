@@ -1,7 +1,10 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
 )
 
 func gameReadyStart(nation string) {
@@ -9,130 +12,92 @@ func gameReadyStart(nation string) {
 	fmt.Println(nation)
 }
 
-type VIEW int
-
-const (
-	DefaultView    VIEW = 0
-	FinanceView    VIEW = 1
-	LawView        VIEW = 2
-	PorductionView VIEW = 3
-	MilitaryView   VIEW = 4
-	TechView       VIEW = 5
-)
-
-func showCountryIntroductionPopup(pickedNation country) {
-	fmt.Println("The nation of ", countryCodes[(int)(pickedNation.code)])
-	showCountryStats(pickedNation)
-	fmt.Println("May you be successful in your endevours!")
-}
-func writeOutput(currentView VIEW, isFirstTime bool, pickedNation country) {
-	if isFirstTime {
-		showCountryIntroductionPopup(pickedNation)
+func writeOutput(currentView VIEW, isFirstTime bool, pickedNation country, globalEconomicsQueue queue) {
+	if isFirstTime && currentView!=NationPicker {
+		VIEWShowCountryIntroductionPopup(pickedNation)
 		isFirstTime = false
 	}
-	writeOverview(currentView, pickedNation)
-}
-func writeFinances(pickedNation country) {
-	fmt.Println("Treasury: ", pickedNation.money)
-	fmt.Println("Debt: ", pickedNation.debt)
-	fmt.Println("Income: ", pickedNation.income)
-	fmt.Println("Expenses: ", pickedNation.expenses)
-	fmt.Println("Interest: ", pickedNation.interest)
-	fmt.Println("Balance: ", int32(pickedNation.income)-int32(pickedNation.expenses))
-}
-func writeOverview(currentView VIEW, pickedNation country) {
-	switch currentView {
-	case DefaultView:
-		fmt.Println("type 'finances' or 'fin' for a detailed view of your finances")
-		fmt.Println("type 'tech' or 'technology' for a detailed view of your technological progress")
-		fmt.Println("type 'army' or 'mil' for a detailed view of your army")
-		fmt.Println("type 'prod' or 'production' for a detailed view of your economic production")
-		fmt.Println("type 'law' or 'gov' or 'government' for a detailed view of your realm's governing structure")
-		break
-	case FinanceView:
-		writeFinances(pickedNation)
-		break
-	case MilitaryView:
-		writeMilitary()
-		break
-	case PorductionView:
-		writeProduction()
-		break
-	case LawView:
-		writeLaw(pickedNation.laws)
-		break
-	case TechView:
-		writeTech()
-		break
+	if isFirstTime {
+		VIEWShowCountryIntroductionPopup(pickedNation)
+		CONSOLEWRITEOverview(&currentView, pickedNation,globalEconomicsQueue)
+		isFirstTime=false
+	}else{
+		CONSOLEWRITEOverview(&currentView, pickedNation,globalEconomicsQueue)
 	}
 }
 
-func writeTech() {
-	//writes the technology interface on the console
-	//TODO: IMPLEMENT MILITARY INTERFACE
-}
 
-func writeMilitary() {
-	//writes the military interface on the console
-	//TODO: IMPLEMENT MILITARY INTERFACE
-}
-
-func writeProduction() {
-	//writes the production interface on the console
-	//TODO: IMPLEMENT PRODUCTION INTERFACE
-}
-
-func writeLaw(laws []law) {
-	//writes the law interface on the console
-	fmt.Println("Laws Enacted:")
-	for i, s := range laws {
-		fmt.Println(i, s.name)
+func handleFinancesInput(pickedNation country, economicQueue queue){
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Print("-> ")
+	text, _ := reader.ReadString('\n')
+	text = strings.Replace(text, "\n", "", -1)
+	if strings.Compare("raise tax",text)==0 {
+		appendQueue(economicQueue, func() {pickedNation=ECONRaiseTax(pickedNation) })
 	}
-	fmt.Println("To propose new legistlation please type 'propose'")
-	fmt.Println("To abolish legislation" +
-		" please type 'abolish' and the number of the law")
-	fmt.Println("-> ")
-}
-func abolishLaw (i int, laws []law) []law {
-	var laws2 = append(laws[:i], laws[i+1:]...);
-	return laws2
-}
-func executeLogic() {
-	executePlayerActions();
-	executeAIActions();
-	runNextStepInSimulation();
+	if strings.Compare("lower tax",text)==0{
+		appendQueue(economicQueue, func() {
+			pickedNation=ECONLowerTax(pickedNation)
+		})
+	}
+	if (containsTech(pickedNation.techs,technology{ID:2}) == true){
+		if strings.Compare("debase",text)==0{
+			appendQueue(economicQueue, func(){pickedNation=ECONDebaseCurrency(pickedNation)})
+		}
+	}
+	if (containsTech(pickedNation.techs,technology{ID:14}) == true){
+		if strings.Compare("nationalize",text)==0{
+			appendQueue(economicQueue,func(){
+				pickedNation=ECONNationalizeIndustries(pickedNation)
+			})
+		}
+	}
 }
 
-func runNextStepInSimulation() {
-	executeUpdateEconomics();
-	executeUpdateCountries();
-	executeUpdateTroops();
+func handleMilitaryInput(pickedNation country) {
+
+}
+
+
+func executeLogic(globalEconomicsQueue queue) {
+	EXECUPDatePlayerActions()
+	EXECUPDateAIActions()
+	runNextStepInSimulation(globalEconomicsQueue)
+}
+
+func runNextStepInSimulation(globalEconomicsQueue queue) {
+	EXECUPDateEconomics(globalEconomicsQueue)
+	//executeUpdateCountries();
+	EXECUPDateTroops()
 }
 
 func executeUpdateCountries() {
 
 }
-
-func executeUpdateEconomics() {
-	
+func EXECUPDateEconomics(economicTaskQueue queue) {
+	var f = func(){}
+	if len(economicTaskQueue)>0{
+		f,economicTaskQueue = popQueue(economicTaskQueue)
+		f()
+	}
 }
 
-func executeUpdateTroops() {
+func EXECUPDateTroops() {
 
 }
 
-func executeAIActions() {
+func EXECUPDateAIActions() {
 
 }
 
-func executePlayerActions() {
+func EXECUPDatePlayerActions() {
 
 }
 func handleGameInput() {
 	fmt.Println("type help")
 }
-func Tick(currentView VIEW, isFirstTime bool, pickedNation country) {
-	writeOutput(currentView, isFirstTime, pickedNation)
-	executeLogic()
+func Tick(currentView VIEW, isFirstTime bool, pickedNation country, globalEconomicsQueue queue, controller Controller) {
+	writeOutput(currentView, isFirstTime, pickedNation, globalEconomicsQueue)
+	executeLogic(globalEconomicsQueue)
 	handleGameInput()
 }
