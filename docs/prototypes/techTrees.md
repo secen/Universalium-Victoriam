@@ -11,14 +11,14 @@ Tech trees
 │Military
 │Infrastructure
 │Culture
-│Religion
+ │Religion
  └──Religious Doctrine
     └─God Saves
     └──Evangelism
-    └──Fanaticism 
-    |OR
-    └──Tolerance
+    (└─Fanaticism 
+  OR(
+    (└─Tolerance
  └──Enlightenment Thinking
-    └──Rationalism
-       └──Existentialism
+     └──Rationalism
+        └──Existentialism
 ```
