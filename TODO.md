@@ -27,3 +27,9 @@ TODO List For Universalium Victoriam
   -  [ ] JSON
   -    [ ] Output
   -    [ ] Input
+- [ ] Diplomacy Overview
+- [ ] Diplomacy Data
+  -  [ ] RAW
+  -  [ ] JSON
+  -    [ ] Output
+  -    [ ] Input
