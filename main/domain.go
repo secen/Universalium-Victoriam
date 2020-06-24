@@ -109,7 +109,7 @@ type decision struct {
 	effect2    uint32
 	effect3    uint32
 }
-type good struct{
+type Good struct{
 	demand float64
 	supply float64
 	price float64
@@ -117,7 +117,7 @@ type good struct{
 	volatilityOfRateOfChange float64
 	rateOfChange float64
 }
-func goodCalculateNextTick(gd good)good{
+func goodCalculateNextTick(gd Good)Good{
 	gd.price+=gd.demand/gd.supply*gd.volatility+gd.rateOfChange*gd.volatilityOfRateOfChange
 	return gd
 }

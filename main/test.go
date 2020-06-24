@@ -121,6 +121,7 @@ func execTests() {
 		testECONLowerTaxes,
 		testECONDebase,
 		testECONNationalize,
+		testsECONTick,
 	}
 	var hasPassed = make([]bool, len(tests))
 	for i, testFunction := range tests {
@@ -149,6 +150,19 @@ func execTests() {
 	fmt.Println("PASSED TESTS: ", testsSuccesfull)
 	fmt.Println("TOTAL TESTS: ", len(tests))
 
+}
+
+func testsECONTick() bool {
+
+	var butter =  Good{2,4,1.5,0.000004,0.002,0.00004};
+	for {
+		butter=goodCalculateNextTick(butter)
+		if butter.price>1.5{
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
 
 func testECONNationalize() bool {
@@ -182,7 +196,7 @@ func testECONLowerTaxes() bool {
 }
 
 func testECONRaiseTaxes() bool {
-	var cnt = loadCountryFromString(readFromFile("countries.txt"))
+	var cnt = loadCountryFromString(readFromFile(debugCountriesFilename))
 	var bakgdp = cnt.gdp
 	cnt = ECONRaiseTax(cnt)
 	if cnt.gdp == bakgdp-5 {
