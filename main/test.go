@@ -108,6 +108,42 @@ func testTechConsoleUI() bool {
 	}
 	return false
 }
+func testMap() bool{
+	var mp string = getMap("gameData/debugArea.txt");
+	if testMapHasWater(mp) &&
+			testMapHasMountains(mp) &&
+			testMapHasForests(mp) &&
+			testEnemyExistsOnMap(mp) &&
+			!testDeadExistOnMap(mp) {
+		return true;
+	}
+	return false;
+}
+
+func testMapHasForests(mp string) bool {
+	return mapHasForests(mp);
+}
+
+
+func testDeadExistOnMap(mp string) bool {
+	return mapDeadExistOnMap(mp);
+}
+
+func testEnemyExistsOnMap(mp string) bool {
+	return mapEnemyExists(mp);
+}
+
+
+
+func testMapHasMountains(mp string) bool {
+	return mapHasMountains(mp);
+}
+
+
+func testMapHasWater(mp string) bool {
+	return mapHasWater(mp);
+}
+
 func testIOLoadCountry() bool {
 	var testCountry Country = loadCountryFromString(readFromFile(debugCountryFilename))
 	if testCountry.Code == 12 {
@@ -132,6 +168,7 @@ func execTests() {
 		testsECONTick,
 		testParsingOfListings,
 		testTechConsoleUI,
+		testMap,
 	}
 	var hasPassed = make([]bool, len(tests))
 	for i, testFunction := range tests {
