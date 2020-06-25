@@ -12,21 +12,17 @@ TODO List For Universalium Victoriam
   -  [x] Implement Goods
   -  [ ] Implement Central Bank Policies
 ##Stuff for later
-- [ ] Tech Trees
-- [ ] Tech Data
-  -  [ ] JSON
-  -    [ ] Output
-  -    [ ] Input
+- [x] Tech Trees
 - [ ] Military Overview
 - [ ] Military Data
   -  [ ] JSON
   -    [ ] Output
   -    [ ] Input
-- [ ] Tech Data
-  -  [ ] RAW
-  -  [ ] JSON
-  -    [ ] Output
-  -    [ ] Input
+- [x] Tech Data
+  -  [x] RAW
+  -  [x] JSON
+  -    [x] Output
+  -    [x] Input
 - [ ] Diplomacy Overview
 - [ ] Diplomacy Data
   -  [ ] RAW
