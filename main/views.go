@@ -30,8 +30,23 @@ func VIEWShowCountryFinances(pickedNation Country) {
 }
 
 func VIEWWRITECountryTechs(pickedNation Country) {
-	//writes the technology interface on the console
-	//TODO: IMPLEMENT TECH INTERFACE
+	//writes the Technology interface on the console
+	var str = readFromFile("techs.json");
+	var techArr []Technology = fromJSONToTechArr(str);
+	for i:=0;i<len(techArr);i++{
+		var tech = techArr[i];
+		for j:=0;j<len(pickedNation.techs);j++{
+			if tech == pickedNation.techs[j] {
+				if pickedNation.techs[j].Taken {
+					fmt.Print("[TAKEN]||")
+				} else {
+					fmt.Print("[     ]||")
+				}
+				fmt.Print(pickedNation.techs[j].Name)
+				fmt.Println("||"+pickedNation.techs[j].Category)
+			}
+		}
+	}
 }
 
 func VIEWShowCountryMilitary(pickedNation Country) {

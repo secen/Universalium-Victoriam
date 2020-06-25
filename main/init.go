@@ -19,6 +19,9 @@ func initCountries () []Country{
 	auxvec[0] = auxcnt
 	return auxvec
 }
+func initGoods()[]Good{
+	return []Good{}
+}
 func initCountryRelations (countries []Country) []RelationEntry {
 	var relations = make([]RelationEntry,10)
 	relations[0] = RelationEntry{cnt1:countries[0],cnt2:countries[1],rel:PEACE}

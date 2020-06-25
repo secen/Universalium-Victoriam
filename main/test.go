@@ -98,6 +98,16 @@ func testLAWAbolishLaw() bool {
 		return false
 	}
 }
+func testTechConsoleUI() bool {
+	var cnt Country = parseCountryFromJSON(readFromFile("countries.json"))
+	var techArr []Technology = fromJSONToTechArr(readFromFile("techs.json"))
+	cnt.techs = append(cnt.techs, techArr[0])
+	var output = captureOutput(func(){VIEWWRITECountryTechs(cnt)});
+	if strings.Contains(output, "[TAKEN]||Central Banking||Banking And Finance"){
+		return true;
+	}
+	return false
+}
 func testIOLoadCountry() bool {
 	var testCountry Country = loadCountryFromString(readFromFile(debugCountryFilename))
 	if testCountry.Code == 12 {
@@ -121,6 +131,7 @@ func execTests() {
 		testECONNationalize,
 		testsECONTick,
 		testParsingOfListings,
+		testTechConsoleUI,
 	}
 	var hasPassed = make([]bool, len(tests))
 	for i, testFunction := range tests {

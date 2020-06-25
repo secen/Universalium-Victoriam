@@ -20,10 +20,15 @@ type Country struct {
 	Expenses            uint32
 	interest            int32
 	laws                []law
-	techs               []technology
+	techs               []Technology
 	nationalEffects     []nationalEffect
 }
 
+type GameData struct{
+	pickedNation Country
+	globalGoods []Good
+	globalNations []Country
+}
 const(
 	debugCountryFilename = "debugCountry.txt"
 	countriesFilename = "countries.json"
@@ -137,11 +142,13 @@ type building struct {
 	effectID  uint32
 }
 
-type technology struct {
+type Technology struct {
 	ID        uint32
-	condition bool
-	taken     bool
-	effectID  uint32
+	Category string
+	Condition bool
+	Taken     bool
+	EffectID  uint32
+	Name      string
 }
 
 type SecSpec int

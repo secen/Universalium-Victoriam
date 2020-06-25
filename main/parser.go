@@ -50,7 +50,12 @@ func parseJSONToCountryListings(JSONStr string) []CountryListing{
 	_ = json.Unmarshal(data,&str)
 	return str;
 }
-
+func fromJSONToTechArr(JSONStr string)[]Technology{
+	var data = []byte(JSONStr)
+	var str []Technology;
+	_ = json.Unmarshal(data,&str)
+	return str;
+}
 func parseJSONToListing(JSONStr string) CountryListing{
 	var data = []byte(JSONStr)
 	var str CountryListing;

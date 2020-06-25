@@ -46,19 +46,21 @@ func startGame(){
 	var globalEconomicsQueue = queue{}
 	var isGameRunning = true
 	var currentView = new(VIEW)
+	var globalCountries = initCountries();
+	var globalGoods = initGoods();
 	*currentView = DefaultView
 	for{
 		if !isGameRunning{
 			break
 		}
 		CONSOLEWRITEOverview(currentView,pickedNation,globalEconomicsQueue)
-		CONSOLEHandlePlayerInput(currentView,&pickedNation,globalEconomicsQueue, gameViewController)
+		CONSOLEHandlePlayerInput(currentView,&pickedNation,globalEconomicsQueue, gameViewController,globalGoods,globalCountries)
 		Tick(*currentView, true, pickedNation,globalEconomicsQueue, gameViewController)
 
 	}
 }
 
-func CONSOLEHandlePlayerInput(view *VIEW, pickedNation *Country, economicsQueue queue, controller Controller) {
+func CONSOLEHandlePlayerInput(view *VIEW, pickedNation *Country, economicsQueue queue, controller Controller, globalGoods []Good, globalCountries []Country) {
 	reader := bufio.NewReader(os.Stdin)
 	switch *view {
 	case DefaultView:
@@ -66,7 +68,7 @@ func CONSOLEHandlePlayerInput(view *VIEW, pickedNation *Country, economicsQueue 
 			"econ":func(){*view = FinanceView},
 			"economy": func(){*view = FinanceView},
 			"exit": func(){os.Exit(0)},
-			"save" :func(){},//TODO: IMPLEMENT SAVE FUNCTIONALITY
+			"save" :func(){saveGame(getGameData(*pickedNation,globalGoods,globalCountries))},
 			"diplo" :func(){},//TODO: IMPLEMENT THE DIPLOMACY SCREEN
 			"diplomacy": func(){},//TODO: IMPLEMENT THE DIPLOMACY SCREEN
 		}

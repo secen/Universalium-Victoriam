@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"io/ioutil"
 	"os"
 	"os/exec"
@@ -22,6 +23,16 @@ func writeToFile(str string, filename string) error {
 	err := ioutil.WriteFile("/tmp/dat1", d1, 0644)
 	return err;
 }
+func saveGame(gd GameData){
+	var aux,_ =json.Marshal(gd);
+	_=writeToFile(string(aux),"saveGame.json");
+}
+func loadGame() GameData{
+	var gd = GameData{};
+	var data = readFromFile("savegame.json");
+	_=json.Unmarshal([]byte(data),&gd)
+	return gd;
+}
 func init() {
 	clear = make(map[string]func()) //Initialize it
 	clear["linux"] = func() {
@@ -35,7 +46,7 @@ func init() {
 		_ = cmd.Run()
 	}
 }
-func containsTech(arr []technology, t technology)bool{
+func containsTech(arr []Technology, t Technology)bool{
 	for i:=0;i<len(arr); i++{
 		if arr[i].ID ==t.ID {
 			return true

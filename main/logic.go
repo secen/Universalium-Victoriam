@@ -49,6 +49,11 @@ func EXECUPDateAIActions() {
 
 }
 
+
+func getGameData(pickedNation Country,globalGoods []Good, globalNations []Country) GameData{
+	var aux =  GameData{ pickedNation:pickedNation, globalGoods:globalGoods,globalNations:globalNations}
+	return aux;
+}
 func EXECUPDatePlayerActions() {
 
 }
