@@ -22,21 +22,17 @@ var pickedNation = Country{}
 
 func inputHandlerGameConsole(text string) {
 
-	if strings.Compare("exit",text) == 0{
-		os.Exit(0)
+	var validInputs = map[string]func(){
+		"exit":func(){os.Exit(0);},
+		"clear":CallClear,
+		"help": VIEWShowNationPickerHelpData,
+		"pick": CONSOLEWRITENationListPicker,
+		"back":func(){gameState = MainMenu
+			main()},
 	}
-	if strings.Compare("clear",text) == 0{
-		CallClear()
-	}
-	if strings.Compare("help",text) == 0{
-		VIEWShowNationPickerHelpData()
-	}
-	if strings.Compare("pick",text) == 0 {
-		CONSOLEWRITENationListPicker()
-	}
-	if strings.Compare("back",text)==0{
-		gameState = MainMenu
-		main()
+	result, ok := validInputs[text];
+	if ok{
+		result();
 	}
 }
 

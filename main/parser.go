@@ -43,7 +43,12 @@ func parseJSONToGood(JSONStr string) Good{
 	return str;
 }
 
-
+func parseJSONToTroops(JSONStr string) []Troop{
+	var data = []byte(JSONStr)
+	var str []Troop;
+	_ = json.Unmarshal(data,&str)
+	return str;
+}
 func parseJSONToCountryListings(JSONStr string) []CountryListing{
 	var data = []byte(JSONStr)
 	var str []CountryListing;

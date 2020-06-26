@@ -26,6 +26,9 @@ func mapHasWater(mp string) bool {
 func mapHasForts(mp string) bool{
 	return strings.Contains(mp,"-")
 }
+func getMap(filename string) string{
+	return readFromFile(filename)
+}
 func mapGet2DArr(mp string) []string{
 	return strings.Split(mp,"\n");
 }
@@ -37,7 +40,7 @@ func mapFrom2DArr(mp []string) string{
 	}
 	return aux;
 }
-func getEntities(mp string)string{
+func getEntitiesMap(mp string)string{
 	var aux string = mp;
 	aux = strings.ReplaceAll(aux,"0","X")
 	aux = strings.ReplaceAll(aux,"1","X")

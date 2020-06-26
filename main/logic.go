@@ -40,9 +40,6 @@ func EXECUPDateEconomics(economicTaskQueue queue) {
 		f()
 	}
 }
-func getMap(filename string) string{
-	return readFromFile(filename)
-}
 func EXECUPDateTroops() {
 
 }

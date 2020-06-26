@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "First Battalion",
+    "Cost": 1,
+    "FirePower": 4,
+    "ManPower": 10000,
+    "StrategicAdvantage": 0,
+    "TechnologicalAdvantage": 1,
+    "TerrainAdvantage": 0,
+    "Cowardice": 0,
+    "Revanchism": 0,
+    "ID": 0
+  }
+]

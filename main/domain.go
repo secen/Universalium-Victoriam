@@ -173,15 +173,16 @@ type politician struct {
 	partyRank  uint32
 }
 
-type troop struct {
-	cost                   uint32
-	firePower              uint32
-	manPower               uint32
-	strategicAdvantage     uint32
-	technologicalAdvantage uint32
-	terrainAdvantage       uint32
-	cowardice              uint32
-	revanchism             uint32
+type Troop struct {
+	Name string
+	Cost                   uint32
+	FirePower              uint32
+	ManPower               uint32
+	StrategicAdvantage     uint32
+	TechnologicalAdvantage uint32
+	TerrainAdvantage       uint32
+	Cowardice              uint32
+	Revanchism             uint32
 	ID                     uint32
 }
 

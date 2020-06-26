@@ -9,7 +9,6 @@ import (
 	"strings"
 	"sync"
 )
-
 func captureOutput(f func()) string {
 	reader, writer, err := os.Pipe()
 	if err != nil {
@@ -63,6 +62,13 @@ func testParsingOfListings() bool{
 		return true;
 	}
 	return false;
+}
+func testTroopLoading() bool{
+	var troops = parseJSONToTroops(readFromFile("gameData/debugTroops.json"))
+	if troops[0].FirePower == 4{
+		return true;}
+	return false;
+
 }
 //noinspection ALL
 func testECONCountryFinancialModifyTax() bool {
@@ -169,6 +175,7 @@ func execTests() {
 		testParsingOfListings,
 		testTechConsoleUI,
 		testMap,
+		testTroopLoading,
 	}
 	var hasPassed = make([]bool, len(tests))
 	for i, testFunction := range tests {
