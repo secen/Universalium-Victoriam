@@ -174,7 +174,7 @@ type politician struct {
 }
 
 type Troop struct {
-	Name string
+	Name                   string
 	Cost                   uint32
 	FirePower              uint32
 	ManPower               uint32
@@ -184,6 +184,7 @@ type Troop struct {
 	Cowardice              uint32
 	Revanchism             uint32
 	ID                     uint32
+	LocationID             uint32
 }
 
 const ClearCommand string = "cls"
@@ -216,6 +217,72 @@ type person struct {
 
 type SecRel int
 
+type CONTINENT uint32
+const(
+	//Continental Regions
+	//EUROPE
+	EUROPE_NORTH CONTINENT = 1
+	EUROPE_CENTRAL CONTINENT = 2
+	EUROPE_SOUTH CONTINENT = 4
+	EUROPE_WEST CONTINENT = 8
+	EUROPE_EAST CONTINENT = 16
+	//ASIA
+	ASIA_WEST = 32
+	ASIA_EAST = 64
+	ASIA_CENTRAL = 128
+	ASIA_NORTH = 256
+	ASIA_SOUTH = 512
+	//AFRICA
+	//MIDDLE EAST
+	//NORTH AMERICA
+	//SOUTH AMERICA
+	//AUSTRALIA
+	//OCEANIA
+)
+const(
+	//Regions
+	//KOREA
+	KOREA_NORTH =iota
+	KOREA_SOUTH
+	//JAPAN
+	JAPAN_HOKKAIDO
+	JAPAN_TOHOKU
+	JAPAN_CHUBU
+	JAPAN_KANTO
+	JAPAN_KINKI
+	JAPAN_CHUGOKU
+	JAPAN_SHIKOKU
+	JAPAN_KYUSHU
+	JAPAN_OKINAWA
+	//CHINA
+	CHINA_HEILONGJIANG
+	CHINA_JILIN
+	CHINA_LIAONING
+	CHINA_BEIJING
+	CHINA_HEBEI
+	CHINA_SHANDONG
+	CHINA_JIANGSU
+	CHINA_SHANGHAI
+	CHINA_ZHEJIANG
+	CHINA_FUJIAN
+	CHINA_GUANGDONG
+	CHINA_MACAO
+	CHINA_HONGKONG
+	CHINA_HAINAN
+	CHINA_GUANGXI
+	CHINA_TUNNAN
+	CHINA_GUIZHOU
+	CHINA_CHONGQING
+	CHINA_SHAANXI
+	CHINA_NINGXIA
+	CHINA_INNERMONGOLIA
+	CHINA_GANSU
+	CHINA_QINGHAI
+	CHINA_XIANJIANG
+	CHINA_TIBET
+	//MONGOLIA
+	MONGOLIA_OUTERMONGOLIA
+)
 const (
 	PEACE      SecRel = 1
 	WAR        SecRel = 2
