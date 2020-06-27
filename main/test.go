@@ -9,55 +9,24 @@ import (
 	"strings"
 	"sync"
 )
-func initPath(from int,to int,paths [][]bool)[][]bool{
-	paths[to][from] = true;
-	paths[from][to] = true;
-	return paths
-}
-func moveToProvince(from int,to int, paths [][]bool) []bool {
-	visited := make([]bool,200);
-	visited[from]=true;
-	if (paths[from][to] == true) {
-		visited[to] = true;
-		return visited;
-	}else{
-		return searchForPath(from,to,paths,visited);
-	}
-}
 
-func searchForPath(from int, to int, paths [][]bool, visited []bool) []bool {
-	visited[from] = true;
-	for i:=0;i<len(paths);i++{
-		if (paths[from][i] == true){
-			if (paths[from][to] == true){
-				visited[to] = true;
-				return visited;
-			}
-			visited := searchForPath(i,to,paths,visited);
-			return visited;
-		}
-	}
-	return visited;
-}
-func initDefaultPathVals(paths [][]bool)[][]bool{
-	for i:=0;i<cap(paths[0]);i++{
-		for j:=0;j<cap(paths);j++{
-			paths[i][j]=false;
-		}
-	}
-	return paths;
-}
 func TestingPathfinding()bool {
-	var paths [][]bool = make([][]bool, 500);
+	var paths [][]bool = make([][]bool, 20);
 	for i := range paths {
-		paths[i] = make([]bool, 500)
+		paths[i] = make([]bool, 20)
 	}
 	paths = initDefaultPathVals(paths);
 	paths = initPath(KOREA_SOUTH, KOREA_NORTH, paths);
-	paths = initPath(KOREA_SOUTH, JAPAN_OKINAWA, paths);
-	visited := make([]bool, 500)
-	aux := searchForPath(KOREA_NORTH, JAPAN_OKINAWA, paths, visited)
-	if (aux[KOREA_SOUTH] && aux[KOREA_SOUTH] && aux[JAPAN_OKINAWA]) {
+	paths = initPath(KOREA_NORTH, JAPAN_OKINAWA, paths);
+	visited := make([]bool, 20)
+	var aux = make([]bool, 20)
+	if (KOREA_NORTH >KOREA_SOUTH){
+	aux = searchForPath(KOREA_SOUTH, JAPAN_OKINAWA, paths, visited)
+	} else{
+	aux=searchForPath(KOREA_NORTH,JAPAN_OKINAWA,paths,visited);
+	}
+	aux2 := searchForPath(KOREA_NORTH,CHINA_JILIN, paths, visited);//aux2[CHINA_JILIN] should be false indicating that no path was found
+	if (aux[KOREA_SOUTH] && aux[KOREA_SOUTH] && aux[JAPAN_OKINAWA] && aux2[CHINA_JILIN] == false) {
 		return true}
 	return false;
 }
