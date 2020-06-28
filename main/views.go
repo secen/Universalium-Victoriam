@@ -28,7 +28,26 @@ func VIEWShowCountryFinances(pickedNation Country) {
 	fmt.Println("To lower taxes please type 'lower tax'")
 	fmt.Println("To go back to the default view, please type 'back'")
 }
-
+func VIEWDiplomacyOverview(pickedNation Country){
+	fmt.Println("Please select one of the following countries to have diplomatic interactions with: ")
+	var countries = parseJSONToCountryListings(readFromFile("nationListings.json"))
+	for i, country:= range countries {
+		fmt.Println(i,".",country.CountryName);
+	}
+}
+func VIEWDiplomaticActions(pickedNation Country, countryToInfluence Country){
+	fmt.Println("type 'declare war' to declare war");
+	fmt.Println("type 'claim' to make a claim");
+	fmt.Println("type 'renounce claim' to renounce a claim");
+	fmt.Println("type: 'offer alliance' to offer an alliance");
+	fmt.Println("type: 'break alliance' to break an alliance");
+	fmt.Println("type: 'show values' to show the selected country's relation values");
+	fmt.Println("type 'insult' to decrease your relations with the chosen country");
+	fmt.Println("type 'improve' to improve your relations with the chosen country");
+	fmt.Println("type 'diplomat' to access your diplomat")
+	fmt.Println("type 'spy' to access your spy")
+	fmt.Println("Chosen country: ", countryToInfluence.Name);
+}
 func VIEWWRITECountryTechs(pickedNation Country) {
 	//writes the Technology interface on the console
 	var str = readFromFile("techs.json");

@@ -22,8 +22,8 @@ type Country struct {
 	laws                []law
 	techs               []Technology
 	nationalEffects     []nationalEffect
+	relations 			[]RelationEntry
 }
-
 type GameData struct{
 	pickedNation Country
 	globalGoods []Good
@@ -160,9 +160,10 @@ const (
 )
 
 type RelationEntry struct {
-	cnt1 Country
-	cnt2 Country
-	rel  SecRel
+	Cnt1 Country
+	Cnt2 Country
+	Rel  SecRel
+	Opinionvalue int32
 }
 
 type politician struct {
@@ -289,6 +290,7 @@ const (
 	CORDIAL    SecRel = 4
 	THREATENED SecRel = 8
 	HISTORICAL SecRel = 16
+	ALLIED 	   SecRel=32
 )
 
 type GameState int
