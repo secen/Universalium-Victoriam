@@ -23,11 +23,11 @@ TODO List For Universalium Victoriam
   -  [x] JSON
   -    [x] Output
   -    [x] Input
-- [ ] Diplomacy Overview
-- [ ] Diplomacy Data
-  -  [ ] RAW
+- [x] Diplomacy Overview
+- [x] Diplomacy Data
+  -  [x] RAW
   -  [ ] JSON
-  -    [ ] Output
-  -    [ ] Input
+  -    [x] Output
+  -    [x] Input
 - [x] Movement
    - [x] Test Movement
