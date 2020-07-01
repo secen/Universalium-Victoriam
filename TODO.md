@@ -11,7 +11,8 @@ TODO List For Universalium Victoriam
   -  [ ] Implement Random Fluctuations
   -  [x] Implement Goods
   -  [ ] Implement Central Bank Policies
-##Stuff for later
+
+## Stuff for later
 - [x] Tech Trees
 - [ ] Military Overview
 - [ ] Military Data
