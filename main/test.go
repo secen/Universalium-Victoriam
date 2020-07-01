@@ -10,25 +10,26 @@ import (
 	"sync"
 )
 
-func TestingPathfinding()bool {
-	var paths [][]bool = make([][]bool, 20);
+func TestingPathfinding() bool {
+	var paths [][]bool = make([][]bool, 20)
 	for i := range paths {
 		paths[i] = make([]bool, 20)
 	}
-	paths = initDefaultPathVals(paths);
-	paths = initPath(KOREA_SOUTH, KOREA_NORTH, paths);
-	paths = initPath(KOREA_NORTH, JAPAN_OKINAWA, paths);
+	paths = initDefaultPathVals(paths)
+	paths = initPath(KOREA_SOUTH, KOREA_NORTH, paths)
+	paths = initPath(KOREA_NORTH, JAPAN_OKINAWA, paths)
 	visited := make([]bool, 20)
 	var aux = make([]bool, 20)
-	if (KOREA_NORTH >KOREA_SOUTH){
-	aux = searchForPath(KOREA_SOUTH, JAPAN_OKINAWA, paths, visited)
-	} else{
-	aux=searchForPath(KOREA_NORTH,JAPAN_OKINAWA,paths,visited);
+	if KOREA_NORTH > KOREA_SOUTH {
+		aux = searchForPath(KOREA_SOUTH, JAPAN_OKINAWA, paths, visited)
+	} else {
+		aux = searchForPath(KOREA_NORTH, JAPAN_OKINAWA, paths, visited)
 	}
-	aux2 := searchForPath(KOREA_NORTH,CHINA_JILIN, paths, visited);//aux2[CHINA_JILIN] should be false indicating that no path was found
-	if (aux[KOREA_SOUTH] && aux[KOREA_SOUTH] && aux[JAPAN_OKINAWA] && aux2[CHINA_JILIN] == false) {
-		return true}
-	return false;
+	aux2 := searchForPath(KOREA_NORTH, CHINA_JILIN, paths, visited) //aux2[CHINA_JILIN] should be false indicating that no path was found
+	if aux[KOREA_SOUTH] && aux[JAPAN_OKINAWA] && aux2[CHINA_JILIN] == false {
+		return true
+	}
+	return false
 }
 
 func captureOutput(f func()) string {
@@ -61,7 +62,7 @@ func captureOutput(f func()) string {
 	return <-out
 }
 func TestShowCountryFinancials() bool {
-	var cnt Country = parseCountryFromJSON(readFromFile(countriesFilename))
+	var cnt Country = parseCountriesFromJSON(readFromFile(countriesFilename))[0]
 	var str = captureOutput(func() { VIEWShowCountryFinances(cnt) })
 	if strings.Contains(str, "Debt:  20") == true {
 		return true
@@ -77,21 +78,23 @@ func testIOReadFromFile() bool {
 		return false
 	}
 }
-func testParsingOfListings() bool{
-	var str =readFromFile("nationListings.json");
-	var listings []CountryListing = parseJSONToCountryListings(str);
-	if strings.Compare(listings[0].CountryName, "SCOTLAND") == 0{
-		return true;
+func testParsingOfListings() bool {
+	var str = readFromFile("nationListings.json")
+	var listings []CountryListing = parseJSONToCountryListings(str)
+	if strings.Compare(listings[0].CountryName, "SCOTLAND") == 0 {
+		return true
 	}
-	return false;
+	return false
 }
-func testTroopLoading() bool{
+func testTroopLoading() bool {
 	var troops = parseJSONToTroops(readFromFile("gameData/debugTroops.json"))
-	if troops[0].FirePower == 4{
-		return true;}
-	return false;
+	if troops[0].FirePower == 4 {
+		return true
+	}
+	return false
 
 }
+
 //noinspection ALL
 func testECONCountryFinancialModifyTax() bool {
 	var cnt = Country{Gdp: 100,
@@ -127,49 +130,45 @@ func testLAWAbolishLaw() bool {
 	}
 }
 func testTechConsoleUI() bool {
-	var cnt Country = parseCountryFromJSON(readFromFile("countries.json"))
+	var cnt Country = parseCountriesFromJSON(readFromFile("countries.json"))[0]
 	var techArr []Technology = fromJSONToTechArr(readFromFile("techs.json"))
 	cnt.techs = append(cnt.techs, techArr[0])
-	var output = captureOutput(func(){VIEWWRITECountryTechs(cnt)});
-	if strings.Contains(output, "[TAKEN]||Central Banking||Banking And Finance"){
-		return true;
+	var output = captureOutput(func() { VIEWWRITECountryTechs(cnt) })
+	if strings.Contains(output, "[TAKEN]||Central Banking||Banking And Finance") {
+		return true
 	}
 	return false
 }
-func testMap() bool{
-	var mp string = getMap("gameData/debugArea.txt");
+func testMap() bool {
+	var mp string = getMap("gameData/debugArea.txt")
 	if testMapHasWater(mp) &&
-			testMapHasMountains(mp) &&
-			testMapHasForests(mp) &&
-			testEnemyExistsOnMap(mp) &&
-			!testDeadExistOnMap(mp) {
-		return true;
+		testMapHasMountains(mp) &&
+		testMapHasForests(mp) &&
+		testEnemyExistsOnMap(mp) &&
+		!testDeadExistOnMap(mp) {
+		return true
 	}
-	return false;
+	return false
 }
 
 func testMapHasForests(mp string) bool {
-	return mapHasForests(mp);
+	return mapHasForests(mp)
 }
 
-
 func testDeadExistOnMap(mp string) bool {
-	return mapDeadExistOnMap(mp);
+	return mapDeadExistOnMap(mp)
 }
 
 func testEnemyExistsOnMap(mp string) bool {
-	return mapEnemyExists(mp);
+	return mapEnemyExists(mp)
 }
-
-
 
 func testMapHasMountains(mp string) bool {
-	return mapHasMountains(mp);
+	return mapHasMountains(mp)
 }
 
-
 func testMapHasWater(mp string) bool {
-	return mapHasWater(mp);
+	return mapHasWater(mp)
 }
 
 func testIOLoadCountry() bool {
@@ -179,6 +178,44 @@ func testIOLoadCountry() bool {
 	} else {
 		return false
 	}
+}
+func testDiplomaticActions() bool {
+	var testCountry Country = parseCountriesFromJSON(readFromFile(countriesFilename))[0]
+	var countryToDeclareOn Country = parseCountriesFromJSON(readFromFile(countriesFilename))[1]
+	var tests []bool = make([]bool, 6)
+	tests[0] = DIPLOgetRelations(testCountry, countryToDeclareOn) == 0
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	tests[1] = DIPLOgetRelations(testCountry, countryToDeclareOn) == 20
+	testCountry, countryToDeclareOn, _ = DIPLOInsult(testCountry, countryToDeclareOn)
+	tests[5] = DIPLOgetRelations(testCountry, countryToDeclareOn) == 0
+	testCountry, countryToDeclareOn, _ = DIPLOOfferAlliance(testCountry, countryToDeclareOn)
+	tests[2] = DIPLOHasAlliance(testCountry, countryToDeclareOn) == false
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOImproveRelations(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOOfferAlliance(testCountry, countryToDeclareOn)
+	tests[3] = DIPLOHasAlliance(testCountry, countryToDeclareOn)
+	testCountry, countryToDeclareOn, _ = DIPLOBreakAlliance(testCountry, countryToDeclareOn)
+	tests[4] = DIPLOHasAlliance(testCountry, countryToDeclareOn) == false
+	DIPLORemoveALLRelations(testCountry, countryToDeclareOn)
+	//TODO: Finish this function
+	return checkIfAlltrue(tests)
+}
+
+func checkIfAlltrue(arr []bool) bool {
+	for i := 0; i < len(arr); i++ {
+		if arr[i] == false {
+			return false
+		}
+	}
+	return true
 }
 func execTests() {
 	fmt.Println("-------------------------------------------")
@@ -199,6 +236,7 @@ func execTests() {
 		testMap,
 		testTroopLoading,
 		TestingPathfinding,
+		testDiplomaticActions,
 	}
 
 	var hasPassed = make([]bool, len(tests))
@@ -234,11 +272,11 @@ func testsECONTick() bool {
 
 	var butter Good = parseJSONToGood(readFromFile("goods.json"))
 	for {
-		butter=goodCalculateNextTick(butter)
-		if butter.Price>1.5{
-			return true;
-		}else {
-			return false;
+		butter = goodCalculateNextTick(butter)
+		if butter.Price > 1.5 {
+			return true
+		} else {
+			return false
 		}
 	}
 }

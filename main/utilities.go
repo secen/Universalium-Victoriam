@@ -10,8 +10,8 @@ import (
 )
 
 var clear map[string]func() //create a map for storing clear funcs
-func readFromFile(fileName string)string{
-	var s,_=ioutil.ReadFile(fileName)
+func readFromFile(fileName string) string {
+	var s, _ = ioutil.ReadFile(fileName)
 	return string(s)
 }
 
@@ -20,18 +20,18 @@ func GetFunctionName(i interface{}) string {
 }
 func writeToFile(str string, filename string) error {
 	d1 := []byte(str)
-	err := ioutil.WriteFile("/tmp/dat1", d1, 0644)
-	return err;
+	err := ioutil.WriteFile("filename", d1, 0644)
+	return err
 }
-func saveGame(gd GameData){
-	var aux,_ =json.Marshal(gd);
-	_=writeToFile(string(aux),"saveGame.json");
+func saveGame(gd GameData) {
+	var aux, _ = json.Marshal(gd)
+	_ = writeToFile(string(aux), "saveGame.json")
 }
-func loadGame() GameData{
-	var gd = GameData{};
-	var data = readFromFile("savegame.json");
-	_=json.Unmarshal([]byte(data),&gd)
-	return gd;
+func loadGame() GameData {
+	var gd = GameData{}
+	var data = readFromFile("savegame.json")
+	_ = json.Unmarshal([]byte(data), &gd)
+	return gd
 }
 func init() {
 	clear = make(map[string]func()) //Initialize it
@@ -46,9 +46,9 @@ func init() {
 		_ = cmd.Run()
 	}
 }
-func containsTech(arr []Technology, t Technology)bool{
-	for i:=0;i<len(arr); i++{
-		if arr[i].ID ==t.ID {
+func containsTech(arr []Technology, t Technology) bool {
+	for i := 0; i < len(arr); i++ {
+		if arr[i].ID == t.ID {
 			return true
 		}
 	}
@@ -56,10 +56,9 @@ func containsTech(arr []Technology, t Technology)bool{
 }
 func CallClear() {
 	value, ok := clear[runtime.GOOS] //runtime.GOOS -> linux, windows, darwin etc.
-	if ok { //if we defined a clear func for that platform:
-		value()  //we execute it
+	if ok {                          //if we defined a clear func for that platform:
+		value() //we execute it
 	} else { //unsupported platform
 		panic("Your platform is unsupported! I can't clear terminal screen :(")
 	}
 }
-

@@ -7,12 +7,12 @@ import (
 	"strings"
 )
 
-func CONSOLEWRITEOverview(currentView *VIEW, pickedNation Country,globalEconomicQueue queue) {
+func CONSOLEWRITEOverview(currentView *VIEW, pickedNation Country, globalEconomicQueue queue) {
 	switch *currentView {
 	case DefaultView:
 		VIEWShowDEFAULTVIEW(pickedNation)
 		break
-	case NationPicker:
+	case NationPickerView:
 		CONSOLEWRITENationListPicker()
 		break
 	case FinanceView:
@@ -35,10 +35,10 @@ func CONSOLEWRITEOverview(currentView *VIEW, pickedNation Country,globalEconomic
 
 func VIEWShowDEFAULTVIEW(pickedNation Country) {
 	fmt.Println("____________________________")
-	fmt.Print(pickedNation.Name,"||")
+	fmt.Print(pickedNation.Name, "||")
 	fmt.Print("Money: ", pickedNation.Money)
 	fmt.Print("||Balance: ", pickedNation.Income-pickedNation.Expenses)
-	fmt.Print("||Pops: ",pickedNation.Population)
+	fmt.Print("||Pops: ", pickedNation.Population)
 	fmt.Println("____________________________")
 	fmt.Print("type 'econ' or 'economy' to go to the economics screen")
 	fmt.Print("type 'save' to save your game")
@@ -52,7 +52,7 @@ func CONSOLEWRITENationListPicker() {
 	text, _ := reader.ReadString('\n')
 	text = strings.Replace(text, "\n", "", -1)
 	if //noinspection SpellCheckingInspection
-	strings.Contains("KOREACHINAJAPANTEUTONICPAPALAUSTRIABYZANTIUMNAPLESOTTOMANSHUNGARYPLCPOLANDLITHUANIAMUSCOVYBRANDENBURGFRANCEENGLANDSPAINSCOTLAND" , text) == true {
+	strings.Contains("KOREACHINAJAPANTEUTONICPAPALAUSTRIABYZANTIUMNAPLESOTTOMANSHUNGARYPLCPOLANDLITHUANIAMUSCOVYBRANDENBURGFRANCEENGLANDSPAINSCOTLAND", text) == true {
 		gameReadyStart(text)
 	}
 }

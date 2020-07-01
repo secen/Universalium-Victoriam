@@ -1,8 +1,10 @@
 package main
 
-import "strconv"
+import (
+	"strconv"
+)
 
-func execDiplomaticActions(pickedNation Country, countryToInfluence Country) {
+func execDiplomaticActions(pickedNation Country, countryToInfluence Country, commandToExecute string) {
 	var (
 		commands = map[string]func(Country, Country) (Country, Country, string){
 			"declare war":    DIPLODeclareWarOnCountry,
@@ -17,23 +19,26 @@ func execDiplomaticActions(pickedNation Country, countryToInfluence Country) {
 			"spy":            DIPLOViewSpy,
 		}
 	)
-	commands["declare war"](pickedNation, countryToInfluence)
+	f, ok := commands[commandToExecute]
+	if ok {
+		f(pickedNation, countryToInfluence)
+	}
 }
 
 func DIPLOClaimInterface(country4 Country, country2 Country) (country Country, country3 Country, s string) {
-	return country4, country2, "Claim Claimed"
+	return country4, country2, "Claim Claimed" //TODO: IMPLEMENT
 }
 
 func DIPLORenounceClaimInterface(country4 Country, country2 Country) (country Country, country3 Country, s string) {
-	return country4, country2, "Claim Renounced"
+	return country4, country2, "Claim Renounced" //TODO: IMPLEMENT
 }
 
 func DIPLOViewSpy(pickedNation Country, country2 Country) (country Country, country3 Country, s string) {
-	return pickedNation, country2, "Spy Viewed"
+	return pickedNation, country2, "Spy Viewed" //TODO: IMPLEMENT
 }
 
 func DIPLOViewDiplomat(pickedNation Country, country2 Country) (country Country, country3 Country, s string) {
-	return pickedNation, country2, "Diplomat Viewed"
+	return pickedNation, country2, "Diplomat Viewed" //TODO: IMPLEMENT
 }
 
 func DIPLOShowCountryValues(pickedNation Country, to Country) (country Country, country2 Country, str string) {
@@ -80,7 +85,31 @@ func DIPLOBreakAlliance(nation Country, to Country) (country Country, country3 C
 		Rel:          THREATENED,
 		Opinionvalue: 150,
 	})
+	nation.relations = removeRelation(nation, to, ALLIED)
+	to.relations = removeRelation(to, nation, ALLIED)
 	return nation, to, "Alliance Broken"
+}
+
+func DIPLORemoveALLRelations(country Country, on Country) {
+	removeRelation(country, on, PEACE)
+	removeRelation(country, on, WAR)
+	removeRelation(country, on, ALLIED)
+	removeRelation(country, on, CORDIAL)
+	removeRelation(country, on, THREATENED)
+	removeRelation(country, on, HISTORICAL)
+}
+func removeRelation(nation Country, to Country, typeOfRelation SecRel) []RelationEntry {
+	var aux = nation.relations
+	for i, val := range aux {
+		if val.Cnt1.Code == nation.Code && val.Cnt2.Code == to.Code && val.Rel == typeOfRelation {
+			if len(aux) > 1 {
+				aux = append(aux[:i], aux[i+1])
+			} else {
+				aux = make([]RelationEntry, 1)
+			}
+		}
+	}
+	return aux
 }
 
 func DIPLOImproveRelations(pickedCountry Country, countryToDeclareOn Country) (country Country, country3 Country, str string) {
@@ -128,7 +157,16 @@ func DIPLOgetRelations(nation Country, to Country) int32 {
 	}
 	return relationSum
 }
-
+func DIPLOHasAlliance(nation Country, to Country) bool {
+	for _, rel := range nation.relations {
+		if rel.Cnt1.Code == nation.Code && rel.Cnt2.Code == to.Code {
+			if rel.Rel == ALLIED {
+				return true
+			}
+		}
+	}
+	return false
+}
 func DIPLOInsult(pickedCountry Country, countryToDeclareOn Country) (country Country, country3 Country, str string) {
 	pickedCountry.relations = append(pickedCountry.relations, RelationEntry{pickedCountry, countryToDeclareOn, THREATENED, -20})
 	countryToDeclareOn.relations = append(countryToDeclareOn.relations, RelationEntry{pickedCountry, countryToDeclareOn, THREATENED, -20})
@@ -136,7 +174,7 @@ func DIPLOInsult(pickedCountry Country, countryToDeclareOn Country) (country Cou
 }
 
 func DIPLODeclareWarOnCountry(pickedCountry Country, countryToDeclareOn Country) (country Country, country3 Country, str string) {
-	pickedNation.relations = append(pickedNation.relations, RelationEntry{pickedNation, countryToDeclareOn, WAR, -200})
-	countryToDeclareOn.relations = append(countryToDeclareOn.relations, RelationEntry{pickedNation, countryToDeclareOn, WAR, -200})
-	return pickedNation, countryToDeclareOn, "War Declared"
+	pickedCountry.relations = append(pickedCountry.relations, RelationEntry{pickedCountry, countryToDeclareOn, WAR, -200})
+	countryToDeclareOn.relations = append(countryToDeclareOn.relations, RelationEntry{pickedCountry, countryToDeclareOn, WAR, -200})
+	return pickedCountry, countryToDeclareOn, "War Declared"
 }
