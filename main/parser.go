@@ -69,3 +69,7 @@ func parseJSONToListing(JSONStr string) CountryListing {
 	_ = json.Unmarshal(data, &str)
 	return str
 }
+func fromNationalEffectToJSONString(effect NationalEffect) string {
+	var aux, _ = json.Marshal(&effect)
+	return string(aux)
+}

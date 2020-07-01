@@ -53,27 +53,27 @@ func VIEWDiplomaticActions(pickedNation Country, countryToInfluence Country) {
 	fmt.Println("type: 'offer alliance' to offer an alliance")
 	fmt.Println("type: 'break alliance' to break an alliance")
 	fmt.Println("type: 'show values' to show the selected country's relation values")
-	fmt.Println("type 'insult' to decrease your relations with the chosen country")
-	fmt.Println("type 'improve' to improve your relations with the chosen country")
+	fmt.Println("type 'insult' to decrease your Relations with the chosen country")
+	fmt.Println("type 'improve' to improve your Relations with the chosen country")
 	fmt.Println("type 'diplomat' to access your diplomat")
 	fmt.Println("type 'spy' to access your spy")
 	fmt.Println("Chosen country: ", countryToInfluence.Name)
 }
 func VIEWWRITECountryTechs(pickedNation Country) {
 	//writes the Technology interface on the console
-	var str = readFromFile("techs.json")
+	var str = readFromFile(techsFilename)
 	var techArr []Technology = fromJSONToTechArr(str)
 	for i := 0; i < len(techArr); i++ {
 		var tech = techArr[i]
-		for j := 0; j < len(pickedNation.techs); j++ {
-			if tech == pickedNation.techs[j] {
-				if pickedNation.techs[j].Taken {
+		for j := 0; j < len(pickedNation.Technologies); j++ {
+			if tech == pickedNation.Technologies[j] {
+				if pickedNation.Technologies[j].Taken {
 					fmt.Print("[TAKEN]||")
 				} else {
 					fmt.Print("[     ]||")
 				}
-				fmt.Print(pickedNation.techs[j].Name)
-				fmt.Println("||" + pickedNation.techs[j].Category)
+				fmt.Print(pickedNation.Technologies[j].Name)
+				fmt.Println("||" + pickedNation.Technologies[j].Category)
 			}
 		}
 	}
@@ -90,14 +90,14 @@ func VIEWWRITECountryProduction(pickedNation Country) {
 }
 
 func VIEWWRITECountryLaws(pickedNation Country) {
-	//writes the law interface on the console
+	//writes the Law interface on the console
 	fmt.Println("Laws Enacted:")
-	for i, s := range pickedNation.laws {
-		fmt.Println(i, s.name)
+	for i, s := range pickedNation.Laws {
+		fmt.Println(i, s.Name)
 	}
 	fmt.Println("To propose new legistlation please type 'propose'")
 	fmt.Println("To abolish legislation" +
-		" please type 'abolish' and the number of the law")
+		" please type 'abolish' and the number of the Law")
 	fmt.Println("-> ")
 }
 

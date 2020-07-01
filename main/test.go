@@ -118,23 +118,23 @@ func testECONCountryFinancialModifyTax() bool {
 	}
 }
 func testLAWAbolishLaw() bool {
-	var laws2 = make([]law, 10)
-	laws2[0] = law{name: "Testing"}
-	laws2[1] = law{name: "Testing2"}
-	laws2[2] = law{name: "Mandate Of Heaven"}
+	var laws2 = make([]Law, 10)
+	laws2[0] = Law{Name: "Testing"}
+	laws2[1] = Law{Name: "Testing2"}
+	laws2[2] = Law{Name: "Mandate Of Heaven"}
 	abolishLaw(1, laws2)
-	if strings.Compare(laws2[1].name, "Mandate Of Heaven") == 0 {
+	if strings.Compare(laws2[1].Name, "Mandate Of Heaven") == 0 {
 		return true
 	} else {
 		return false
 	}
 }
 func testTechConsoleUI() bool {
-	var cnt Country = parseCountriesFromJSON(readFromFile("countries.json"))[0]
-	var techArr []Technology = fromJSONToTechArr(readFromFile("techs.json"))
-	cnt.techs = append(cnt.techs, techArr[0])
+	var cnt Country = parseCountriesFromJSON(readFromFile(countriesFilename))[0]
+	var techArr []Technology = fromJSONToTechArr(readFromFile(techsFilename))
+	cnt.Technologies = append(cnt.Technologies, techArr[0])
 	var output = captureOutput(func() { VIEWWRITECountryTechs(cnt) })
-	if strings.Contains(output, "[TAKEN]||Central Banking||Banking And Finance") {
+	if strings.Contains(output, "Central Banking") {
 		return true
 	}
 	return false
@@ -230,6 +230,7 @@ func execTests() {
 		testECONLowerTaxes,
 		testECONDebase,
 		testECONNationalize,
+		testECONPrivatize,
 		testsECONTick,
 		testParsingOfListings,
 		testTechConsoleUI,
@@ -238,7 +239,6 @@ func execTests() {
 		TestingPathfinding,
 		testDiplomaticActions,
 	}
-
 	var hasPassed = make([]bool, len(tests))
 	for i, testFunction := range tests {
 		fmt.Println("Executing TEST NO.", i, " - ", GetFunctionName(testFunction))
@@ -268,9 +268,17 @@ func execTests() {
 
 }
 
+func testECONPrivatize() bool {
+	var cnts = parseCountriesFromJSON(readFromFile(countriesFilename))
+	var pickedNation = cnts[0]
+	var bakGDP = pickedNation.Gdp
+	pickedNation = ECONPrivatize(pickedNation)
+	return bakGDP == pickedNation.Gdp/4
+}
+
 func testsECONTick() bool {
 
-	var butter Good = parseJSONToGood(readFromFile("goods.json"))
+	var butter Good = parseJSONToGood(readFromFile(goodsFilename))
 	for {
 		butter = goodCalculateNextTick(butter)
 		if butter.Price > 1.5 {
@@ -282,10 +290,10 @@ func testsECONTick() bool {
 }
 
 func testECONNationalize() bool {
-	var cnt = loadCountryFromString(readFromFile(debugCountryFilename))
+	var cnt = parseCountriesFromJSON(readFromFile(countriesFilename))[0]
 	var pastMoney = cnt.Money
 	cnt = ECONNationalizeIndustries(cnt)
-	if cnt.Money/30 == pastMoney {
+	if cnt.Money/40 == pastMoney {
 		return true
 	}
 	return false

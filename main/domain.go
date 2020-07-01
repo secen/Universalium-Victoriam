@@ -1,9 +1,14 @@
 package main
 
-type law struct {
-	effect      func(Country)
-	name        string
-	description string
+import (
+	"math/rand"
+	"time"
+)
+
+type Law struct {
+	Effect      func(Country)
+	Name        string
+	Description string
 	Type        uint32
 }
 type Country struct {
@@ -19,10 +24,10 @@ type Country struct {
 	Income              uint32
 	Expenses            uint32
 	interest            int32
-	laws                []law
-	techs               []Technology
-	nationalEffects     []nationalEffect
-	relations           []RelationEntry
+	Laws                []Law
+	Technologies        []Technology
+	NationalEffects     []NationalEffect
+	Relations           []RelationEntry
 }
 type GameData struct {
 	pickedNation  Country
@@ -36,6 +41,8 @@ const (
 	nationPickerDataFilename = "nationListings.json"
 	consoleHelpDataFilename  = "consoleHelpData.txt"
 	nationPickerFilename     = "\\consoleData\\nationPickerHelpData.txt"
+	goodsFilename            = "goods.json"
+	techsFilename            = "techs.json"
 )
 
 type CountryListing struct {
@@ -50,10 +57,14 @@ func appendQueue(q queue, f func()) queue { q = append(q, f); return q } // Enqu
 func deQueue(q queue) queue               { q = q[1:]; return q }
 func popQueue(q queue) (func(), queue)    { var aux = q[0]; q = deQueue(q); return aux, q }
 
-type nationalEffect struct {
-	ID          uint32
-	conditionId uint32
-	effectId    uint32
+type NationalEffect struct {
+	ID               uint32
+	Name             string
+	Description      string
+	ConditionID      uint32
+	EffectID         uint32
+	effect           func(country Country) Country
+	DurationInMonths uint32 //if 0 then it's forever
 }
 
 type owner struct {
@@ -82,7 +93,10 @@ type Good struct {
 }
 
 func goodCalculateNextTick(gd Good) Good {
-	gd.Price += gd.Demand/gd.Supply*gd.Volatility + gd.RateOfChange*gd.VolatilityOfRateOfChange
+	rand.Seed(time.Now().Unix())
+	var randomChange1 = rand.Float64()
+	var randomChange2 = rand.Float64()
+	gd.Price += gd.Demand/gd.Supply*gd.Volatility*randomChange1 + gd.RateOfChange*gd.VolatilityOfRateOfChange*randomChange2
 	return gd
 }
 

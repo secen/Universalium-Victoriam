@@ -45,7 +45,7 @@ func DIPLOShowCountryValues(pickedNation Country, to Country) (country Country, 
 
 	aux := ""
 	b := []byte("")
-	for _, val := range pickedNation.relations {
+	for _, val := range pickedNation.Relations {
 		b = strconv.AppendInt(b, int64(val.Opinionvalue), 10)
 		aux += val.Cnt2.Name + ":" + string(b)
 		switch val.Rel {
@@ -56,7 +56,7 @@ func DIPLOShowCountryValues(pickedNation Country, to Country) (country Country, 
 			aux += ": at war\n"
 			break
 		case CORDIAL:
-			aux += ": in cordial relations\n"
+			aux += ": in cordial Relations\n"
 			break
 		case THREATENED:
 			aux += ": feels threatened by us\n"
@@ -73,20 +73,20 @@ func DIPLOShowCountryValues(pickedNation Country, to Country) (country Country, 
 }
 
 func DIPLOBreakAlliance(nation Country, to Country) (country Country, country3 Country, str string) {
-	nation.relations = append(nation.relations, RelationEntry{
+	nation.Relations = append(nation.Relations, RelationEntry{
 		Cnt1:         nation,
 		Cnt2:         to,
 		Rel:          THREATENED,
 		Opinionvalue: 150,
 	})
-	to.relations = append(to.relations, RelationEntry{
+	to.Relations = append(to.Relations, RelationEntry{
 		Cnt1:         to,
 		Cnt2:         nation,
 		Rel:          THREATENED,
 		Opinionvalue: 150,
 	})
-	nation.relations = removeRelation(nation, to, ALLIED)
-	to.relations = removeRelation(to, nation, ALLIED)
+	nation.Relations = removeRelation(nation, to, ALLIED)
+	to.Relations = removeRelation(to, nation, ALLIED)
 	return nation, to, "Alliance Broken"
 }
 
@@ -99,7 +99,7 @@ func DIPLORemoveALLRelations(country Country, on Country) {
 	removeRelation(country, on, HISTORICAL)
 }
 func removeRelation(nation Country, to Country, typeOfRelation SecRel) []RelationEntry {
-	var aux = nation.relations
+	var aux = nation.Relations
 	for i, val := range aux {
 		if val.Cnt1.Code == nation.Code && val.Cnt2.Code == to.Code && val.Rel == typeOfRelation {
 			if len(aux) > 1 {
@@ -113,8 +113,8 @@ func removeRelation(nation Country, to Country, typeOfRelation SecRel) []Relatio
 }
 
 func DIPLOImproveRelations(pickedCountry Country, countryToDeclareOn Country) (country Country, country3 Country, str string) {
-	pickedCountry.relations = append(pickedCountry.relations, RelationEntry{pickedCountry, countryToDeclareOn, CORDIAL, 20})
-	countryToDeclareOn.relations = append(countryToDeclareOn.relations, RelationEntry{pickedCountry, countryToDeclareOn, CORDIAL, 20})
+	pickedCountry.Relations = append(pickedCountry.Relations, RelationEntry{pickedCountry, countryToDeclareOn, CORDIAL, 20})
+	countryToDeclareOn.Relations = append(countryToDeclareOn.Relations, RelationEntry{pickedCountry, countryToDeclareOn, CORDIAL, 20})
 	return pickedCountry, countryToDeclareOn, "Relations Improved"
 }
 
@@ -127,13 +127,13 @@ func DIPLOOfferAlliance(pickedNation Country, countryToAllyTo Country) (country 
 }
 
 func DIPLOCreateAlliance(nation Country, to Country) (Country, Country, string) {
-	nation.relations = append(nation.relations, RelationEntry{
+	nation.Relations = append(nation.Relations, RelationEntry{
 		Cnt1:         nation,
 		Cnt2:         to,
 		Rel:          ALLIED,
 		Opinionvalue: 150,
 	})
-	to.relations = append(to.relations, RelationEntry{
+	to.Relations = append(to.Relations, RelationEntry{
 		Cnt1:         to,
 		Cnt2:         nation,
 		Rel:          ALLIED,
@@ -150,7 +150,7 @@ func isAllianceOfInterest(nation Country, to Country) bool {
 
 func DIPLOgetRelations(nation Country, to Country) int32 {
 	var relationSum int32 = 0
-	for _, rel := range nation.relations {
+	for _, rel := range nation.Relations {
 		if rel.Cnt1.Code == nation.Code && rel.Cnt2.Code == to.Code {
 			relationSum += rel.Opinionvalue
 		}
@@ -158,7 +158,7 @@ func DIPLOgetRelations(nation Country, to Country) int32 {
 	return relationSum
 }
 func DIPLOHasAlliance(nation Country, to Country) bool {
-	for _, rel := range nation.relations {
+	for _, rel := range nation.Relations {
 		if rel.Cnt1.Code == nation.Code && rel.Cnt2.Code == to.Code {
 			if rel.Rel == ALLIED {
 				return true
@@ -168,13 +168,13 @@ func DIPLOHasAlliance(nation Country, to Country) bool {
 	return false
 }
 func DIPLOInsult(pickedCountry Country, countryToDeclareOn Country) (country Country, country3 Country, str string) {
-	pickedCountry.relations = append(pickedCountry.relations, RelationEntry{pickedCountry, countryToDeclareOn, THREATENED, -20})
-	countryToDeclareOn.relations = append(countryToDeclareOn.relations, RelationEntry{pickedCountry, countryToDeclareOn, THREATENED, -20})
+	pickedCountry.Relations = append(pickedCountry.Relations, RelationEntry{pickedCountry, countryToDeclareOn, THREATENED, -20})
+	countryToDeclareOn.Relations = append(countryToDeclareOn.Relations, RelationEntry{pickedCountry, countryToDeclareOn, THREATENED, -20})
 	return pickedCountry, countryToDeclareOn, "Country Insulted"
 }
 
 func DIPLODeclareWarOnCountry(pickedCountry Country, countryToDeclareOn Country) (country Country, country3 Country, str string) {
-	pickedCountry.relations = append(pickedCountry.relations, RelationEntry{pickedCountry, countryToDeclareOn, WAR, -200})
-	countryToDeclareOn.relations = append(countryToDeclareOn.relations, RelationEntry{pickedCountry, countryToDeclareOn, WAR, -200})
+	pickedCountry.Relations = append(pickedCountry.Relations, RelationEntry{pickedCountry, countryToDeclareOn, WAR, -200})
+	countryToDeclareOn.Relations = append(countryToDeclareOn.Relations, RelationEntry{pickedCountry, countryToDeclareOn, WAR, -200})
 	return pickedCountry, countryToDeclareOn, "War Declared"
 }

@@ -19,8 +19,6 @@ func nationPicker() {
 	}
 }
 
-var pickedNation = Country{}
-
 func inputHandlerGameConsole(text string) {
 
 	var validInputs = map[string]func(){
@@ -47,6 +45,7 @@ func startGame() {
 	var currentView = new(VIEW)
 	var globalCountries = initCountries()
 	var globalGoods = initGoods()
+	var pickedNation Country
 	*currentView = DefaultView
 	for {
 		if !isGameRunning {

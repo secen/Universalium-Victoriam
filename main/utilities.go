@@ -20,7 +20,7 @@ func GetFunctionName(i interface{}) string {
 }
 func writeToFile(str string, filename string) error {
 	d1 := []byte(str)
-	err := ioutil.WriteFile("filename", d1, 0644)
+	err := ioutil.WriteFile(filename, d1, 0644)
 	return err
 }
 func saveGame(gd GameData) {

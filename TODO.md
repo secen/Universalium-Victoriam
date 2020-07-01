@@ -1,23 +1,6 @@
 TODO List For Universalium Victoriam 
 ======================================
-## Next Tasks [0.0.5]
-- [ ] Make all input and output be in JSON
-  -  [ ] Make the input be in JSON
-  -    [x] Make the country listings be in JSON
-- [ ] Fully implement the economics system (currently 60% done)
-  -  [x] Implement Price Changes
-  -  [x] Implement Taxation
-  -  [x] Implement Nationalisations
-  -  [ ] Implement Random Fluctuations
-  -  [x] Implement Goods
-  -  [ ] Implement Central Bank Policies
-##Stuff for later
-- [x] Tech Trees
-- [ ] Military Overview
-- [ ] Military Data
-  -  [ ] JSON
-  -    [ ] Output
-  -    [ ] Input
+## Next Tasks [0.0.6]
 - [x] Tech Data
   -  [x] RAW
   -  [x] JSON
@@ -29,5 +12,29 @@ TODO List For Universalium Victoriam
   -  [ ] JSON
   -    [x] Output
   -    [x] Input
+## Previous Tasks [0.0.5]
+- [x] Make all input and output be in JSON
+  -  [x] Make the input be in JSON
+  -    [x] Make the country listings be in JSON
+- [x] Fully implement the economics system
+  -  [x] Implement Price Changes
+  -  [x] Implement Taxation
+  -  [x] Implement Nationalisations
+  -  [x] Implement Privatizations
+  -  [x] Implement Random Fluctuations
+  -  [x] Implement Goods
+  -  [x] Implement Central Bank Policies
+    - [x] Deflate
+    - [x] Inflate
+    - [x] Asset Buying
+    - [x] Bonds
+    - [x] Asset Selling
+##Stuff for later
+- [x] Tech Trees
+- [ ] Military Overview
+- [ ] Military Data
+  -  [ ] JSON
+  -    [ ] Output
+  -    [ ] Input
 - [x] Movement
    - [x] Test Movement
